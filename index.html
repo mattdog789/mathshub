@@ -4,558 +4,1019 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Maths Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #111118;
+  --surface2: #1a1a24;
+  --surface3: #22222f;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #f0f0f8;
+  --text2: #9090a8;
+  --text3: #5a5a72;
+  --accent: #7c3aed;
+  --accent2: #a855f7;
+  --accent3: #c084fc;
+  --glow: rgba(124,58,237,0.15);
+  --glow2: rgba(168,85,247,0.08);
+  --green: #10b981;
+  --amber: #f59e0b;
+  --red: #ef4444;
+  --cyan: #06b6d4;
+  --sidebar-w: 260px;
+}
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: system-ui, -apple-system, sans-serif; background: #f4f6f9; }
+html, body { height: 100%; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── TOPBAR ── */
+.topbar {
+  height: 56px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+}
+.topbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.logo-mark {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  box-shadow: 0 0 16px var(--glow);
+}
+.logo-text {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+.logo-sub {
+  font-size: 11px;
+  color: var(--text3);
+  font-weight: 400;
+}
+.topbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: auto;
+}
+.topbar-btn {
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: none;
+  background: none;
+  color: var(--text2);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+}
+.topbar-btn:hover { background: var(--surface2); color: var(--text); }
+.topbar-btn.active { background: var(--surface3); color: var(--text); }
+.topbar-btn .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent2);
+  box-shadow: 0 0 6px var(--accent);
+}
+.mood-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--surface2);
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  margin-left: 8px;
+}
+.mood-bar span { font-size: 10px; color: var(--text3); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; }
+.mood-emoji { font-size: 18px; cursor: pointer; border-radius: 6px; padding: 2px 3px; transition: all 0.15s; border: 1px solid transparent; }
+.mood-emoji:hover { transform: scale(1.2); background: var(--surface3); }
+.mood-emoji.active { border-color: var(--accent); background: var(--glow); }
+
+/* ── LAYOUT ── */
+.app-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 56px;
+  height: calc(100vh - 56px);
+  overflow-y: auto;
+  padding: 16px 12px;
+  gap: 4px;
+}
+.sidebar-section {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 12px 8px 6px;
+}
+.week-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+  border: 1px solid transparent;
+  text-decoration: none;
+}
+.week-nav-item:hover { background: var(--surface2); }
+.week-nav-item.active { background: var(--glow2); border-color: rgba(124,58,237,0.25); }
+.week-nav-item.current { background: var(--glow); border-color: rgba(124,58,237,0.4); }
+.wni-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.wni-dot.past { background: var(--text3); }
+.wni-dot.current { background: var(--accent2); box-shadow: 0 0 8px var(--accent); }
+.wni-dot.upcoming { background: var(--surface3); border: 1px solid var(--border2); }
+.wni-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text2);
+  flex: 1;
+  line-height: 1.3;
+}
+.week-nav-item.current .wni-label { color: var(--text); }
+.wni-badge {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+.badge-past { background: rgba(16,185,129,0.15); color: var(--green); }
+.badge-current { background: rgba(124,58,237,0.2); color: var(--accent3); }
+.badge-upcoming { background: var(--surface3); color: var(--text3); }
+
+/* progress bar in sidebar */
+.sidebar-progress {
+  margin: 8px 8px 4px;
+  padding: 12px;
+  background: var(--surface2);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+.sp-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text3);
+  margin-bottom: 8px;
+}
+.sp-label strong { color: var(--text2); font-weight: 600; }
+.sp-bar {
+  height: 4px;
+  background: var(--surface3);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.sp-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  border-radius: 4px;
+  box-shadow: 0 0 8px var(--glow);
+  transition: width 1s ease;
+}
+
+/* ── MAIN CONTENT ── */
+.main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 32px;
+  min-width: 0;
+}
+
+/* ── PAGE HEADER ── */
+.page-header {
+  margin-bottom: 32px;
+}
+.page-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent3);
+  margin-bottom: 8px;
+}
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.page-sub {
+  font-size: 14px;
+  color: var(--text2);
+  line-height: 1.5;
+}
+
+/* ── WEEK CARD ── */
+.week-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+  scroll-margin-top: 80px;
+}
+.week-card:hover { border-color: var(--border2); }
+.week-card.is-current {
+  border-color: rgba(124,58,237,0.4);
+  box-shadow: 0 0 0 1px rgba(124,58,237,0.15), 0 8px 32px rgba(0,0,0,0.4);
+}
+.week-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 22px;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+.week-card-header::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px 16px 0 0;
+  pointer-events: none;
+}
+.week-card.is-current .week-card-header {
+  background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(168,85,247,0.06));
+}
+.week-number {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-family: 'JetBrains Mono', monospace;
+  min-width: 50px;
+}
+.week-card.is-current .week-number { color: var(--accent3); }
+.week-title-text {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.week-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.status-pill {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.status-pill.past { background: rgba(16,185,129,0.1); color: var(--green); border: 1px solid rgba(16,185,129,0.2); }
+.status-pill.current { background: rgba(124,58,237,0.15); color: var(--accent3); border: 1px solid rgba(124,58,237,0.3); }
+.status-pill.upcoming { background: var(--surface2); color: var(--text3); border: 1px solid var(--border); }
+.status-dot { width: 6px; height: 6px; border-radius: 50%; }
+.status-dot.past { background: var(--green); }
+.status-dot.current { background: var(--accent2); box-shadow: 0 0 6px var(--accent); }
+.status-dot.upcoming { background: var(--text3); }
+.week-chevron {
+  color: var(--text3);
+  font-size: 14px;
+  transition: transform 0.3s;
+  flex-shrink: 0;
+}
+.week-card.open .week-chevron { transform: rotate(180deg); }
+
+/* ── WEEK BODY ── */
+.week-body {
+  display: none;
+  border-top: 1px solid var(--border);
+}
+.week-card.open .week-body { display: block; }
+
+/* ── LESSON ── */
+.lesson {
+  display: grid;
+  grid-template-columns: 140px 1fr 180px;
+  border-bottom: 1px solid var(--border);
+}
+.lesson:last-child { border-bottom: none; }
+.lesson-meta {
+  padding: 20px 18px;
+  border-right: 1px solid var(--border);
+  background: rgba(0,0,0,0.2);
+}
+.lesson-day {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent3);
+  margin-bottom: 3px;
+}
+.lesson-date {
+  font-size: 12px;
+  color: var(--text3);
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 3px;
+}
+.lesson-period {
+  font-size: 11px;
+  color: var(--text3);
+  font-style: italic;
+}
+.lesson-content {
+  padding: 20px 22px;
+  border-right: 1px solid var(--border);
+}
+.content-section {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent3);
+  margin: 14px 0 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.content-section:first-child { margin-top: 0; }
+.intent-block {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.6;
+  padding: 10px 12px;
+  background: rgba(124,58,237,0.06);
+  border-left: 2px solid var(--accent);
+  border-radius: 0 6px 6px 0;
+  margin-bottom: 4px;
+}
+.activity-chip {
+  font-size: 12px;
+  color: var(--text2);
+  padding: 6px 10px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+.explain-box {
+  margin-top: 14px;
+  padding: 14px;
+  background: rgba(245,158,11,0.05);
+  border: 1px solid rgba(245,158,11,0.15);
+  border-radius: 10px;
+}
+.explain-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--amber);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.explain-textarea {
+  width: 100%;
+  background: var(--surface3);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 13px;
+  color: var(--text);
+  font-family: inherit;
+  min-height: 64px;
+  resize: vertical;
+  line-height: 1.5;
+  transition: border-color 0.2s;
+}
+.explain-textarea:focus { outline: none; border-color: var(--accent); }
+.explain-textarea::placeholder { color: var(--text3); }
+.explain-save {
+  margin-top: 8px;
+  padding: 6px 14px;
+  background: var(--surface3);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  color: var(--text2);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+.explain-save:hover { background: rgba(124,58,237,0.15); border-color: var(--accent); color: var(--accent3); }
+.explain-ok { font-size: 11px; color: var(--green); margin-left: 8px; display: none; }
+.lesson-resources {
+  padding: 20px 18px;
+  background: rgba(0,0,0,0.2);
+}
+.resource-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text3);
+  padding: 4px 0;
+  text-decoration: none;
+  transition: color 0.15s;
+  line-height: 1.4;
+}
+.resource-link:hover { color: var(--accent3); }
+.resource-link::before { content: '↗'; font-size: 10px; opacity: 0.5; flex-shrink: 0; }
+
+/* ── HW BUTTON ── */
+.hw-row {
+  padding: 14px 22px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid var(--border);
+  background: rgba(0,0,0,0.15);
+}
+.hw-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.hw-btn.past {
+  background: var(--surface2);
+  color: var(--text3);
+  border: 1px solid var(--border);
+}
+.hw-btn.current {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(124,58,237,0.4);
+}
+.hw-btn.current:hover { box-shadow: 0 6px 24px rgba(124,58,237,0.6); transform: translateY(-1px); }
+.hw-btn.upcoming {
+  background: var(--surface2);
+  color: var(--text2);
+  border: 1px solid var(--border2);
+}
+.hw-btn.upcoming:hover { border-color: var(--accent); color: var(--accent3); }
+
+/* ── TERM NAV BUTTON ── */
+.term-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 20px;
+  border-radius: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 8px;
+  transition: all 0.2s;
+}
+.term-btn:hover { border-color: var(--border2); color: var(--text); background: var(--surface2); }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border2); }
+
+/* ── GLOW ORBS background ── */
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.35;
+}
+.orb1 { width: 400px; height: 400px; background: var(--accent); top: -100px; right: -100px; }
+.orb2 { width: 300px; height: 300px; background: var(--cyan); bottom: 100px; left: 200px; opacity: 0.12; }
+
+/* ensure content above orbs */
+.topbar, .sidebar, .main { position: relative; z-index: 1; }
 </style>
 </head>
 <body>
-<!-- MATHS STUDENT HUB v2 — fully inline, Canvas-safe -->
-<!-- DEFAULT EDITOR PASSWORD: teacher123 -->
-<div id="mhub">
 
-<!-- NAV -->
-<div style="background:linear-gradient(135deg,#0d47a1,#1976d2);display:flex;align-items:stretch;box-shadow:0 2px 8px rgba(0,0,0,0.2);flex-wrap:wrap">
-  <div style="padding:14px 20px;font-size:17px;font-weight:700;color:#fff;flex:1;min-width:120px">📐 <span id="mh-nav-title">Maths Hub</span></div>
-  <button onclick="mhShow('lessons',this)" id="mh-tab-lessons" style="padding:14px 16px;background:rgba(255,255,255,0.12);border:none;border-bottom:3px solid #fff;color:#fff;font-size:13px;font-weight:700;cursor:pointer">📅 Lessons</button>
-  <button onclick="mhShow('dashboard',this)" id="mh-tab-dashboard" style="padding:14px 16px;background:none;border:none;border-bottom:3px solid transparent;color:rgba(255,255,255,0.75);font-size:13px;font-weight:700;cursor:pointer">📊 My Progress</button>
-  <button onclick="mhShow('flashcards',this)" id="mh-tab-flashcards" style="padding:14px 16px;background:none;border:none;border-bottom:3px solid transparent;color:rgba(255,255,255,0.75);font-size:13px;font-weight:700;cursor:pointer">🃏 Flashcards</button>
-  <button onclick="mhShow('tutor',this)" id="mh-tab-tutor" style="padding:14px 16px;background:none;border:none;border-bottom:3px solid transparent;color:rgba(255,255,255,0.75);font-size:13px;font-weight:700;cursor:pointer">🤖 AI Tutor</button>
-  <button onclick="mhShow('editor',this)" id="mh-tab-editor" style="padding:14px 16px;background:none;border:none;border-bottom:3px solid transparent;color:rgba(255,255,255,0.75);font-size:13px;font-weight:700;cursor:pointer">✏️ Edit</button>
-</div>
+<!-- background orbs -->
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
 
-<!-- MOOD BAR -->
-<div style="background:#fff;border-bottom:1px solid #e0e0e0;padding:10px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-  <span style="font-size:13px;color:#666;font-weight:500">How are you feeling today?</span>
-  <span id="mh-mood-😩" onclick="mhMood('😩')" style="font-size:22px;cursor:pointer;padding:3px 6px;border-radius:6px;border:2px solid transparent;transition:all 0.15s" title="Struggling">😩</span>
-  <span id="mh-mood-😕" onclick="mhMood('😕')" style="font-size:22px;cursor:pointer;padding:3px 6px;border-radius:6px;border:2px solid transparent" title="Confused">😕</span>
-  <span id="mh-mood-😐" onclick="mhMood('😐')" style="font-size:22px;cursor:pointer;padding:3px 6px;border-radius:6px;border:2px solid transparent" title="Okay">😐</span>
-  <span id="mh-mood-🙂" onclick="mhMood('🙂')" style="font-size:22px;cursor:pointer;padding:3px 6px;border-radius:6px;border:2px solid transparent" title="Good">🙂</span>
-  <span id="mh-mood-🤩" onclick="mhMood('🤩')" style="font-size:22px;cursor:pointer;padding:3px 6px;border-radius:6px;border:2px solid transparent" title="Great">🤩</span>
-  <span id="mh-streak" style="font-size:12px;color:#888;margin-left:auto"></span>
-  <span id="mh-mood-history" style="display:flex;gap:3px"></span>
-</div>
-
-<!-- ═══ LESSONS PAGE ═══ -->
-<div id="mh-page-lessons" style="padding:20px;max-width:1100px;margin:0 auto">
-  <div id="mh-weeks"></div>
-  <a id="mh-term-link" href="#" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#6a1b9a,#9c27b0);color:#fff;text-decoration:none;padding:14px 20px;border-radius:8px;font-size:14px;font-weight:700;margin-top:8px">⬅ Term 1</a>
-</div>
-
-<!-- ═══ DASHBOARD PAGE ═══ -->
-<div id="mh-page-dashboard" style="display:none;padding:20px;max-width:1100px;margin:0 auto">
-  <div style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 4px rgba(0,0,0,0.08);margin-bottom:16px;text-align:center">
-    <div style="font-size:15px;font-weight:700;color:#0d47a1;margin-bottom:16px">📊 Your confidence radar</div>
-    <canvas id="mh-radar" width="360" height="300" style="max-width:100%"></canvas>
-    <div style="display:flex;gap:16px;justify-content:center;margin-top:10px;flex-wrap:wrap">
-      <span style="font-size:12px;color:#666;display:flex;align-items:center;gap:4px"><span style="display:inline-block;width:12px;height:12px;background:#1976d2;border-radius:50%"></span>Your confidence</span>
-      <span style="font-size:12px;color:#666;display:flex;align-items:center;gap:4px"><span style="display:inline-block;width:12px;height:12px;background:#e0e0e0;border-radius:50%"></span>Full marks</span>
+<!-- ── TOPBAR ── -->
+<div class="topbar">
+  <div class="topbar-logo">
+    <div class="logo-mark">∫</div>
+    <div>
+      <div class="logo-text" id="top-title">Maths Hub</div>
+      <div class="logo-sub">Year 12 Methods</div>
     </div>
   </div>
-  <div style="font-size:15px;font-weight:700;color:#0d47a1;margin-bottom:12px">⭐ Rate your confidence per topic</div>
-  <div id="mh-conf-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px"></div>
+
+  <div class="mood-bar">
+    <span>Today</span>
+    <span class="mood-emoji" data-mood="😩" onclick="setMood('😩')" title="Struggling">😩</span>
+    <span class="mood-emoji" data-mood="😕" onclick="setMood('😕')" title="Confused">😕</span>
+    <span class="mood-emoji" data-mood="😐" onclick="setMood('😐')" title="Okay">😐</span>
+    <span class="mood-emoji" data-mood="🙂" onclick="setMood('🙂')" title="Good">🙂</span>
+    <span class="mood-emoji" data-mood="🤩" onclick="setMood('🤩')" title="Great">🤩</span>
+    <span id="streak-label" style="font-size:11px;color:var(--accent3);margin-left:2px"></span>
+  </div>
+
+  <div class="topbar-nav">
+    <a href="index.html" class="topbar-btn active"><span class="dot"></span> Lessons</a>
+    <a href="dashboard.html" class="topbar-btn">📊 Progress</a>
+    <a href="flashcards.html" class="topbar-btn">🃏 Flashcards</a>
+    <a href="tutor.html" class="topbar-btn">🤖 Tutor</a>
+    <a href="editor.html" class="topbar-btn">✏️ Edit</a>
+  </div>
 </div>
 
-<!-- ═══ FLASHCARDS PAGE ═══ -->
-<div id="mh-page-flashcards" style="display:none;padding:20px;max-width:800px;margin:0 auto">
-  <div style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 4px rgba(0,0,0,0.08)">
-    <div style="font-size:15px;font-weight:700;color:#0d47a1;margin-bottom:14px">🃏 Flashcard deck</div>
-    <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap">
-      <select id="mh-fc-sel" onchange="mhLoadDeck(this.value)" style="padding:8px 12px;border-radius:8px;border:1px solid #ddd;font-size:13px;font-weight:600;background:#fff"></select>
-      <button onclick="mhFcShuffle()" style="padding:8px 16px;border-radius:8px;border:none;background:#1976d2;color:#fff;font-size:13px;font-weight:700;cursor:pointer">🔀 Shuffle</button>
-      <button onclick="mhFcReset()" style="padding:8px 16px;border-radius:8px;border:1px solid #ddd;background:#fff;font-size:13px;font-weight:600;cursor:pointer">↺ Reset</button>
-      <span id="mh-fc-prog" style="font-size:13px;color:#666;margin-left:auto">Select a deck</span>
-    </div>
-    <!-- card scene -->
-    <div style="perspective:1000px;width:100%;max-width:520px;height:200px;margin:0 auto 14px;cursor:pointer" onclick="mhFcFlip()">
-      <div id="mh-fc-inner" style="width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform 0.5s">
-        <div id="mh-fc-front" style="position:absolute;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;background:linear-gradient(135deg,#1565c0,#1976d2);color:#fff">
-          <div id="mh-fc-q" style="font-size:16px;font-weight:600;line-height:1.4">Select a deck above to begin</div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.65);margin-top:12px">Click card to flip</div>
-        </div>
-        <div style="position:absolute;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;background:linear-gradient(135deg,#0d47a1,#1565c0);color:#fff">
-          <div id="mh-fc-a" style="font-size:14px;line-height:1.6">Answer appears here</div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.65);margin-top:12px">Click to flip back</div>
-        </div>
+<!-- ── APP BODY ── -->
+<div class="app-body">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-section">Term Progress</div>
+    <div class="sidebar-progress">
+      <div class="sp-label">
+        <span>Weeks complete</span>
+        <strong id="sp-text">0 / 0</strong>
       </div>
+      <div class="sp-bar"><div class="sp-fill" id="sp-fill" style="width:0%"></div></div>
     </div>
-    <div id="mh-fc-actions" style="display:none;justify-content:center;gap:10px;margin-bottom:14px">
-      <button onclick="mhFcMark(false)" style="padding:9px 20px;border-radius:8px;border:none;background:#c62828;color:#fff;font-size:14px;font-weight:700;cursor:pointer">✗ Still learning</button>
-      <button onclick="mhFcMark(true)" style="padding:9px 20px;border-radius:8px;border:none;background:#2e7d32;color:#fff;font-size:14px;font-weight:700;cursor:pointer">✓ Got it</button>
+
+    <div class="sidebar-section" style="margin-top:8px">Weeks</div>
+    <div id="week-nav"></div>
+
+    <div style="margin-top:auto;padding-top:16px">
+      <a id="term-link-sidebar" href="#" class="week-nav-item" style="justify-content:center;font-size:12px;color:var(--text3)">
+        ← Back to Term 1
+      </a>
     </div>
-    <div style="display:flex;gap:20px;justify-content:center;font-size:13px;color:#666">
-      <span>✓ <span id="mh-fc-known">0</span> known</span>
-      <span>✗ <span id="mh-fc-unk">0</span> still learning</span>
-      <span>— <span id="mh-fc-uns">0</span> unseen</span>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="page-header">
+      <div class="page-eyebrow">Mathematical Methods · Term 2 2026</div>
+      <h1 class="page-title" id="main-title">Class Tasks</h1>
+      <p class="page-sub" id="main-sub">Select a week to view lessons, activities, and resources.</p>
     </div>
-  </div>
+
+    <div id="weeks-container"></div>
+
+    <a id="term-btn" href="#" class="term-btn">← Term 1</a>
+  </main>
 </div>
-
-<!-- ═══ TUTOR PAGE ═══ -->
-<div id="mh-page-tutor" style="display:none;padding:20px;max-width:800px;margin:0 auto">
-  <div style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 4px rgba(0,0,0,0.08)">
-    <div style="font-size:15px;font-weight:700;color:#0d47a1;margin-bottom:14px">🤖 AI Maths Tutor</div>
-    <div id="mh-tutor-setup" style="background:#fff3e0;border-radius:10px;padding:16px;margin-bottom:14px;border:1px solid #ffcc02">
-      <div style="font-size:13px;font-weight:700;color:#e65100;margin-bottom:6px">Gemini API Key — free at aistudio.google.com → Get API key</div>
-      <input type="password" id="mh-gem-key" placeholder="Paste your API key here..." style="width:100%;border:1px solid #ddd;border-radius:6px;padding:8px 12px;font-size:13px;font-family:monospace;box-sizing:border-box">
-      <button onclick="mhSaveKey()" style="margin-top:8px;padding:8px 18px;background:#e65100;color:#fff;border:none;border-radius:6px;font-size:13px;cursor:pointer;font-weight:700">Save key &amp; start chatting</button>
-      <div style="font-size:12px;color:#888;margin-top:8px">Your key is saved locally on this device only.</div>
-    </div>
-    <div id="mh-tutor-ready" style="display:none">
-      <div id="mh-tutor-topic" style="font-size:12px;color:#666;padding:8px 14px;background:#f0f4ff;border-radius:6px;margin-bottom:10px;border:1px solid #c5d5f0">📖 Tutor ready</div>
-      <div style="border:1px solid #e0e0e0;border-radius:10px;overflow:hidden">
-        <div id="mh-tutor-msgs" style="min-height:200px;max-height:380px;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:#f8f9fa">
-          <div style="max-width:80%;padding:10px 14px;border-radius:10px;font-size:14px;line-height:1.5;background:#fff;border:1px solid #e0e0e0;align-self:flex-start;border-bottom-left-radius:3px">👋 Hi! I'm your maths tutor. Ask me to explain anything, work through a problem, or quiz you. What would you like help with?</div>
-        </div>
-        <div style="display:flex;border-top:1px solid #e0e0e0">
-          <input id="mh-tutor-in" placeholder="Ask a question..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();mhSend()}" style="flex:1;border:none;padding:12px 16px;font-size:14px;font-family:inherit;outline:none;background:#fff">
-          <button onclick="mhSend()" style="padding:12px 20px;background:#1976d2;color:#fff;border:none;font-weight:700;font-size:14px;cursor:pointer">Send ↗</button>
-        </div>
-      </div>
-      <div id="mh-starters" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"></div>
-      <button onclick="mhClearKey()" style="margin-top:10px;padding:5px 12px;background:none;border:1px solid #ddd;border-radius:6px;font-size:12px;color:#999;cursor:pointer">Clear saved key</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ EDITOR PAGE ═══ -->
-<div id="mh-page-editor" style="display:none;padding:20px;max-width:900px;margin:0 auto">
-  <!-- Lock screen -->
-  <div id="mh-ed-lock" style="background:#fff;border-radius:12px;padding:40px;box-shadow:0 1px 4px rgba(0,0,0,0.08);text-align:center">
-    <div style="font-size:36px;margin-bottom:10px">🔒</div>
-    <div style="font-size:17px;font-weight:700;margin-bottom:4px">Teacher editor</div>
-    <div style="font-size:13px;color:#888;margin-bottom:18px">Enter your password to edit lessons and flashcards</div>
-    <input type="password" id="mh-pw" placeholder="Password" onkeydown="if(event.key==='Enter')mhUnlock()" style="border:1px solid #ddd;border-radius:8px;padding:10px 16px;font-size:15px;width:240px;text-align:center;letter-spacing:4px;box-sizing:border-box">
-    <br><button onclick="mhUnlock()" style="margin-top:12px;padding:10px 28px;background:#0d47a1;color:#fff;border:none;border-radius:8px;font-size:14px;cursor:pointer;font-weight:700">Unlock</button>
-    <div id="mh-pw-err" style="color:#c62828;font-size:13px;margin-top:8px;min-height:18px"></div>
-  </div>
-  <!-- Editor content -->
-  <div id="mh-ed-content" style="display:none">
-    <div id="mh-save-banner" style="display:none;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:8px;padding:12px 16px;color:#2e7d32;font-size:14px;font-weight:700;text-align:center;margin-bottom:16px">✓ Changes saved!</div>
-
-    <!-- General settings -->
-    <div style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 4px rgba(0,0,0,0.08);margin-bottom:16px">
-      <div style="font-size:15px;font-weight:700;color:#0d47a1;border-bottom:2px solid #e3f2fd;padding-bottom:8px;margin-bottom:14px">⚙️ General settings</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
-        <div><div style="font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px">Page title</div><input id="ed-title" style="width:100%;border:1px solid #ddd;border-radius:6px;padding:8px 10px;font-size:13px;box-sizing:border-box"></div>
-        <div><div style="font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px">New editor password</div><input type="password" id="ed-pw" placeholder="Leave blank to keep current" style="width:100%;border:1px solid #ddd;border-radius:6px;padding:8px 10px;font-size:13px;box-sizing:border-box"></div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
-        <div><div style="font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px">Term nav label</div><input id="ed-term-lbl" style="width:100%;border:1px solid #ddd;border-radius:6px;padding:8px 10px;font-size:13px;box-sizing:border-box"></div>
-        <div><div style="font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px">Term nav link</div><input id="ed-term-url" style="width:100%;border:1px solid #ddd;border-radius:6px;padding:8px 10px;font-size:13px;box-sizing:border-box"></div>
-      </div>
-      <div><div style="font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px">AI tutor system prompt</div><textarea id="ed-prompt" style="width:100%;border:1px solid #ddd;border-radius:6px;padding:8px 10px;font-size:13px;min-height:90px;resize:vertical;font-family:inherit;box-sizing:border-box"></textarea></div>
-    </div>
-
-    <!-- Weeks list -->
-    <div style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 4px rgba(0,0,0,0.08);margin-bottom:16px">
-      <div style="font-size:15px;font-weight:700;color:#0d47a1;border-bottom:2px solid #e3f2fd;padding-bottom:8px;margin-bottom:14px">📅 Weeks &amp; lessons</div>
-      <div id="mh-ed-weeks"></div>
-      <button onclick="mhAddWeek()" style="margin-top:10px;padding:9px 20px;background:#0d47a1;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">+ Add week</button>
-    </div>
-
-    <div style="display:flex;gap:10px">
-      <button onclick="mhSaveAll()" style="padding:12px 28px;background:#0d47a1;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer">💾 Save all changes</button>
-      <button onclick="mhLock()" style="padding:12px 20px;background:#fff;border:1px solid #ddd;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer">🔒 Lock editor</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════
-     LESSON EDIT MODAL (injected by JS)
-═══════════════════════════════════════════ -->
 
 <script>
-// ── DATA LAYER (swap these 2 fns to use a backend) ──
-function mhSave(k,v){try{localStorage.setItem('mhub2_'+k,JSON.stringify(v))}catch(e){}}
-function mhLoad(k,fb){try{var v=localStorage.getItem('mhub2_'+k);return v!==null?JSON.parse(v):fb}catch(e){return fb}}
-// Backend version (uncomment + fill URL):
-// function mhSave(k,v){fetch('YOUR_URL',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:k,value:v})})}
-// function mhLoad(k,fb){return fb} // would need async refactor
+// ══════════════════════════════════════════
+// DATA
+// ══════════════════════════════════════════
+function mhSave(k,v){try{localStorage.setItem('mhub3_'+k,JSON.stringify(v))}catch(e){}}
+function mhLoad(k,fb){try{var v=localStorage.getItem('mhub3_'+k);return v!==null?JSON.parse(v):fb}catch(e){return fb}}
 
-// ── DEFAULT DATA ──
-var MH_DEFAULT = {
-  title:'Maths Hub',
-  termLabel:'⬅ Term 1',
-  termUrl:'https://sec.instructure.com/courses/9697/pages/class-tasks',
-  editorPw:'teacher123',
-  systemPrompt:'You are a helpful, encouraging maths tutor for Year 12 students studying Methods. This term covers: definite integrals, areas under/between curves, integration in motion, discrete random variables, expected value, variance, Bernoulli and Binomial distributions. Explain clearly, use worked examples, keep responses concise and friendly.',
-  weeks:[
-    {id:'w0',title:'Week 1 – Definite Integrals / Areas Under Curves',start:'2026-04-22',end:'2026-04-25',hwLink:'https://sec.instructure.com/courses/9697/quizzes/7241',hwLabel:'HW Week 1',
-     flashcards:[
-       {q:'What is a definite integral?',a:'A definite integral calculates the exact net area under a curve between two x-values (boundaries). It gives a number, not a function.'},
-       {q:'Indefinite vs definite integral?',a:'Indefinite: finds the general antiderivative (function + C). Definite: uses limits to calculate an exact numerical area.'},
-       {q:'Why does area below the x-axis count as negative?',a:'Because function values (heights) are negative there — the integral sums negative heights × width strips, giving a negative contribution.'}
-     ],
+var DATA = mhLoad('data', null) || {
+  title: 'Maths Hub',
+  sub: 'Year 12 Mathematical Methods · Term 2 2026',
+  termLabel: '← Term 1',
+  termUrl: 'https://sec.instructure.com/courses/9697/pages/class-tasks',
+  editorPw: 'teacher123',
+  systemPrompt: 'You are a helpful, encouraging maths tutor for Year 12 students studying Methods. This term covers: definite integrals, areas under/between curves, integration in motion, discrete random variables, expected value, variance, Bernoulli and Binomial distributions.',
+  weeks: [
+    {
+      id:'w0', title:'Definite Integrals / Areas Under Curves',
+      start:'2026-04-22', end:'2026-04-25',
+      hwLink:'https://sec.instructure.com/courses/9697/quizzes/7241', hwLabel:'HW Week 1',
+      flashcards:[
+        {q:'What is a definite integral?',a:'A definite integral calculates the exact net area under a curve between two x-values. It gives a number, not a function.'},
+        {q:'Indefinite vs definite integral?',a:'Indefinite: finds the general antiderivative (+ C). Definite: uses limits to calculate an exact numerical area.'},
+        {q:'Why does area below the x-axis count as negative?',a:'Function values are negative there — the integral sums negative heights × width strips, giving a negative contribution.'}
+      ],
+      lessons:[
+        {day:'Tuesday',date:'22/04/2026',period:'Period 1',
+         intentions:'To understand the definite integral as a tool for calculating the exact accumulated area under a curve between two specific boundaries.',
+         criteria:'• Explain the difference between indefinite and definite integrals.\n• Describe the steps: antiderivative, plug in endpoints, subtract.\n• Explain why area below the x-axis counts as negative.',
+         activities:'1. The Definite Integral.pptx\n2. Ex4.05 p.186 Q4a) c), Q5b) d), Q6b) e) g) j)',
+         resources:'NELSON 4.05.pdf'},
+        {day:'Wednesday',date:'23/04/2026',period:'Period 3',
+         intentions:'Continued: definite integral as accumulated area.',
+         criteria:'Same as Tuesday.',
+         activities:'1. More Definite Integrals.pptx\n2. Ex4.06 p.190 Q1c) f) h) j), Q2a) e), Q3c) e), Q4b) d), Q5d), Q6d), Q7',
+         resources:'NELSON 4.06.pdf'},
+        {day:'Thursday',date:'24/04/2026',period:'Period 5',
+         intentions:'To understand how to identify and calculate the total space trapped between a graph and the x-axis.',
+         criteria:'• Identify the shape created by graph and boundaries.\n• Explain trapped space as a total accumulated amount.\n• Area above adds; below subtracts.',
+         activities:'1. Areas Under Curves.pptx\n2. Complete worksheet: Physical Areas.pdf',
+         resources:'Physical Areas.pdf'},
+        {day:'Friday',date:'25/04/2026',period:'Period 1',
+         intentions:'',criteria:'',
+         activities:'1. Work through Example 2 as a class.\n2. Continue worksheet from last lesson.',
+         resources:'Physical Areas.pdf'}
+      ]
+    },
+    {
+      id:'w1', title:'Areas Between Curves',
+      start:'2026-04-28', end:'2026-05-01',
+      hwLink:'https://sec.instructure.com/courses/9697/quizzes/7271', hwLabel:'HW Week 2',
+      flashcards:[
+        {q:'How do you find the area between two curves?',a:'Integrate (top − bottom) between intersection points: ∫[a to b] (f(x) − g(x)) dx'},
+        {q:'How do you find intersection points?',a:'Set f(x) = g(x) and solve for x. These become your limits of integration.'}
+      ],
+      lessons:[
+        {day:'Monday',date:'28/04/2026',period:'Period 3&4',
+         intentions:'',criteria:'',activities:'Public Holiday',resources:''},
+        {day:'Tuesday',date:'30/04/2026',period:'Period 6',
+         intentions:'To understand how to determine the exact area enclosed between two curves.',
+         criteria:'• Identify which curve is the ceiling and which is the floor.\n• Find intersection points.\n• Area = integral of (top − bottom).',
+         activities:'1. Areas between curves.pptx\nSolutions: Solution 1.mp4 | Solution 2.mp4',
+         resources:'Calculating Areas between curves.pdf'}
+      ]
+    },
+    {
+      id:'w2', title:'Total Change / Integration in Motion',
+      start:'2026-05-06', end:'2026-05-09',
+      hwLink:'https://sec.instructure.com/courses/9697/quizzes/7274', hwLabel:'HW Week 3',
+      flashcards:[
+        {q:'What does the area under a velocity graph represent?',a:'The total distance (or displacement) travelled over that time period.'},
+        {q:'How do you find final position from velocity?',a:'Integrate the velocity function over the time interval and add the initial position.'}
+      ],
+      lessons:[
+        {day:'Tuesday',date:'06/05/2026',period:'Period 1',
+         intentions:'To understand how finding the space under a rate-of-change graph reveals the total amount of change over time.',
+         criteria:'• Explain that area under a rate graph = total accumulated amount.\n• Determine if total is growing or shrinking from graph position.\n• Find final total by combining initial amount with accumulated changes.',
+         activities:'1. Total Change.pptx\n2. Complete worksheet (p.1–2 only): Total Change.pdf',
+         resources:'Total Change.pdf (p.1–2)'},
+        {day:'Wednesday',date:'07/05/2026',period:'Period 3',
+         intentions:'To understand how integration of motion graphs allows us to work backward from acceleration to speed, and speed to distance.',
+         criteria:'• Area under acceleration graph = change in speed.\n• Area under speed graph = distance travelled.\n• Find final speed/position from initial value + accumulated change.',
+         activities:'1. Application of Integration to Motion.pptx\n2. Ex6.07 p.283 Q4, Q10, Q12, Q15',
+         resources:'NELSON 6.07.pdf'}
+      ]
+    },
+    {
+      id:'w3', title:'Expected Value and Variance',
+      start:'2026-05-12', end:'2026-05-15',
+      hwLink:'https://sec.instructure.com/courses/9697/quizzes/7275', hwLabel:'HW Week 4',
+      flashcards:[
+        {q:'What is expected value?',a:'The long-run average result of a random variable. E(X) = Σ x·P(X=x). It\'s what you\'d average over many trials.'},
+        {q:'What is variance?',a:'A measure of spread — how far outcomes typically deviate from the mean. Var(X) = E(X²) − [E(X)]²'}
+      ],
+      lessons:[
+        {day:'Tuesday',date:'13/05/2026',period:'Period 6',
+         intentions:'To understand expected value as the predictable long-term average result of a random event.',
+         criteria:'• Explain that "expected" result is an average across many trials, not a single outcome.\n• Describe how to find it by weighing each outcome by its probability.\n• Use it to evaluate if a scenario is "fair."',
+         activities:'1. Ex2.06 Expected Value.pdf\n2. Ex2.06 p.75 Q1, Q3, Q6, Q10, Q12, Q14',
+         resources:'NELSON 2.06.pdf'},
+        {day:'Thursday',date:'14/05/2026',period:'Period 3',
+         intentions:'To understand how to measure and describe how spread out data is around its mean.',
+         criteria:'• Explain the difference between knowing the mean and knowing the spread.\n• Recognise that tightly packed data has low variance.\n• Explain that standard deviation is the typical distance from the mean.',
+         activities:'1. Variance and Standard Deviation.pptx\n2. Ex2.07 p.81 Q2, Q4, Q7, Q10, Q14, Q17',
+         resources:'NELSON 2.07.pdf'}
+      ]
+    },
+    {
+      id:'w4', title:'Distributions',
+      start:'2026-05-19', end:'2026-05-22',
+      hwLink:'https://sec.instructure.com/courses/9697/quizzes/7276', hwLabel:'HW Week 5',
+      flashcards:[
+        {q:'What is a Bernoulli distribution?',a:'Models a single trial with exactly two outcomes: success (p) or failure (1−p).'},
+        {q:'What are the four conditions for a Binomial distribution?',a:'Fixed number of trials (n), only two outcomes, independent trials, constant probability of success (p).'}
+      ],
+      lessons:[
+        {day:'Wednesday',date:'20/05/2026',period:'Period 3',
+         intentions:'To understand applications of discrete random variables in real-world business and risk scenarios.',
+         criteria:'• Identify real-world situations for discrete analysis.\n• Use expected value to evaluate financial decisions.\n• Explain how spread (risk) helps prepare for worst-case scenarios.',
+         activities:'1. Applications of Discrete Random Variables.pptx\n2. Ex2.08 p.87 Q1, Q2, Q6, Q7, Q9, Q15',
+         resources:'NELSON 2.08.pdf'},
+        {day:'Friday',date:'22/05/2026',period:'Period 1',
+         intentions:'To understand how to model a single event with exactly two possible outcomes.',
+         criteria:'• Identify real-world Bernoulli situations.\n• Explain that P(failure) = 1 − P(success).\n• Recognise this model applies to one single attempt only.',
+         activities:'1. The Bernoulli Distribution.pptx\n2. Ex5.01 p.202 Q6a) b), Q7a) b), Q9, Q10',
+         resources:'NELSON 5.01.pdf'}
+      ]
+    },
+    {
+      id:'w5', title:'Properties of Binomial Distribution',
+      start:'2026-05-25', end:'2026-05-28',
+      hwLink:'https://sec.instructure.com/courses/9697/quizzes/7277', hwLabel:'⭐ HW Week 6',
+      flashcards:[
+        {q:'Binomial probability formula?',a:'P(X=k) = C(n,k) × p^k × (1−p)^(n−k)'},
+        {q:'Expected value and variance of Binomial?',a:'E(X) = np, Var(X) = np(1−p)'}
+      ],
+      lessons:[
+        {day:'Monday',date:'25/05/2026',period:'Period 3&4',
+         intentions:'To understand how to predict the number of successes when repeating a two-outcome event.',
+         criteria:'• Explain the model as repeating a pass/fail event.\n• Predict most likely successes from n and p.\n• Describe how graph shape shifts with different p values.',
+         activities:'1. The Binomial Distribution.pptx\n2. Ex5.03 p.214 Q3, Q6a) c) e), Q7, Q9',
+         resources:'NELSON 5.03.pdf'},
+        {day:'Tuesday',date:'26/05/2026',period:'Period 6',
+         intentions:'Continued: using the binomial distribution.',
+         criteria:'Same as Monday.',
+         activities:'1. Using the Binomial Distribution.pptx\n2. Ex5.04 p.218 Q2, Q4, Q6, Q8, Q10, Q12',
+         resources:'NELSON 5.04.pdf'},
+        {day:'Thursday',date:'28/05/2026',period:'Period 3',
+         intentions:'To understand the four strict rules of a binomial scenario and its mean/variance formulas.',
+         criteria:'• Identify the four conditions.\n• E(X) = np.\n• Spread is highest when p = 0.5.',
+         activities:'1. Properties of a Binomial Distribution.pptx\n2. Ex5.05 p.226 Q1, Q2, Q7, Q8, Q10, Q12',
+         resources:'NELSON 5.04.pdf\nNELSON 5.05.pdf'}
+      ]
+    },
+    {id:'w6',title:'Revision Week 1 / Catch Up',start:'2026-06-02',end:'2026-06-05',hwLink:'#',hwLabel:'No HW',flashcards:[],
      lessons:[
-       {day:'Tuesday',date:'22/04/2026',period:'Period 1',intentions:'To understand the definite integral as a tool for calculating the exact accumulated area under a curve between two specific boundaries.',criteria:'• Explain the difference between indefinite and definite integrals.\n• Describe the steps: antiderivative, plug in endpoints, subtract.\n• Explain why area below x-axis counts as negative.',activities:'1. The Definite Integral.pptx\n2. Ex4.05 p.186 Q4a) c), Q5b) d), Q6b) e) g) j)',resources:'NELSON 4.05.pdf'},
-       {day:'Wednesday',date:'23/04/2026',period:'Period 3',intentions:'Continued: definite integral as accumulated area.',criteria:'Same as Tuesday.',activities:'1. More Definite Integrals.pptx\n2. Ex4.06 p.190 Q1c) f) h) j), Q2a) e), Q3c) e), Q4b) d), Q5d), Q6d), Q7',resources:'NELSON 4.06.pdf'},
-       {day:'Thursday',date:'24/04/2026',period:'Period 5',intentions:'To understand how to identify, calculate, and interpret the total space trapped between a graph and the x-axis.',criteria:'• Identify the shape created by graph and boundaries.\n• Explain trapped space as a total accumulated amount.\n• Area above adds; below subtracts.',activities:'1. Areas Under Curves.pptx\n2. Complete worksheet: Physical Areas.pdf',resources:'Physical Areas.pdf'},
-       {day:'Friday',date:'25/04/2026',period:'Period 1',intentions:'',criteria:'',activities:'1. Work through Example 2 as a class.\n2. Continue worksheet from last lesson.',resources:'Physical Areas.pdf'}
+       {day:'Tuesday',date:'02/06/2026',period:'Period 1',intentions:'',criteria:'',activities:'Ensure 5.05 is completed.',resources:'NELSON 5.05.pdf'},
+       {day:'Wednesday',date:'03/06/2026',period:'Period 3',intentions:'To systematically review all key concepts for the exam.',criteria:'Independently identify weakest topics and complete targeted practice.',activities:'Revision Materials — see Exam Information link.',resources:''},
+       {day:'Thursday',date:'04/06/2026',period:'Period 5',intentions:'To systematically review all key concepts for the exam.',criteria:'Independently identify weakest topics and complete targeted practice.',activities:'Revision Materials — see Exam Information link.',resources:''},
+       {day:'Friday',date:'05/06/2026',period:'Period 1',intentions:'To systematically review all key concepts for the exam.',criteria:'Independently identify weakest topics and complete targeted practice.',activities:'Revision Materials — see Exam Information link.',resources:''}
      ]
     },
-    {id:'w1',title:'Week 2 – Areas Between Curves',start:'2026-04-28',end:'2026-05-01',hwLink:'https://sec.instructure.com/courses/9697/quizzes/7271',hwLabel:'HW Week 2',
-     flashcards:[
-       {q:'How do you find the area between two curves?',a:'Integrate (top curve − bottom curve) between their intersection points: ∫[a to b] (f(x) − g(x)) dx'},
-       {q:'How do you find intersection points?',a:'Set f(x) = g(x) and solve for x. These become your limits of integration.'}
-     ],
+    {id:'w7',title:'Revision Week 2',start:'2026-06-08',end:'2026-06-11',hwLink:'#',hwLabel:'No HW',flashcards:[],
      lessons:[
-       {day:'Tuesday',date:'30/04/2026',period:'Period 6',intentions:'To understand how to determine the exact area enclosed between two curves.',criteria:'• Identify which curve is the ceiling and which is the floor.\n• Find intersection points (left and right edges).\n• Area = integral of (top − bottom).',activities:'1. Areas between curves.pptx\nSolutions: Solution 1.mp4 | Solution 2.mp4',resources:'Calculating Areas between curves.pdf'}
+       {day:'Monday',date:'08/06/2026',period:'Period 3&4',intentions:'',criteria:'',activities:'Public Holiday',resources:''},
+       {day:'Tuesday',date:'10/06/2026',period:'Period 6',intentions:'To systematically review all key concepts.',criteria:'Independently identify weakest topics and complete targeted practice.',activities:'Revision Materials — see Exam Information link.',resources:''},
+       {day:'Thursday',date:'11/06/2026',period:'Period 3',intentions:'To systematically review all key concepts.',criteria:'Independently identify weakest topics and complete targeted practice.',activities:'Revision Materials — see Exam Information link.',resources:''}
+     ]
+    },
+    {id:'w8',title:'Exam Period',start:'2026-06-16',end:'2026-06-19',hwLink:'#',hwLabel:'No HW',flashcards:[],
+     lessons:[
+       {day:'Tuesday',date:'16/06/2026',period:'Period 1',intentions:'',criteria:'',activities:'',resources:''},
+       {day:'Wednesday',date:'17/06/2026',period:'Period 3',intentions:'',criteria:'',activities:'',resources:''},
+       {day:'Thursday',date:'18/06/2026',period:'Period 5',intentions:'',criteria:'',activities:'',resources:''},
+       {day:'Friday',date:'19/06/2026',period:'Period 1',intentions:'',criteria:'',activities:'',resources:''}
+     ]
+    },
+    {id:'w9',title:'Semester 2 Break Prep',start:'2026-06-22',end:'2026-06-25',hwLink:'#',hwLabel:'No HW',flashcards:[],
+     lessons:[
+       {day:'Monday',date:'22/06/2026',period:'Period 3&4',intentions:'',criteria:'',activities:'',resources:''},
+       {day:'Tuesday',date:'23/06/2026',period:'Period 6',intentions:'',criteria:'',activities:'',resources:''},
+       {day:'Thursday',date:'25/06/2026',period:'Period 3',intentions:'',criteria:'',activities:'',resources:''}
      ]
     }
   ]
 };
 
-// ── APP STATE ──
-var MHD = mhLoad('data',null)||JSON.parse(JSON.stringify(MH_DEFAULT));
-var MH_CONF = mhLoad('conf',{});
-var MH_EXP = mhLoad('exp',{});
-var MH_MOODS = mhLoad('moods',[]);
-var MH_UNLOCKED = false;
-var MH_FC_DECK = [], MH_FC_IDX = 0, MH_FC_FLIPPED = false;
-var MH_TUTOR_HIST = [];
-var MH_CUR_WEEK = null;
+var EXP = mhLoad('exp', {});
+var MOODS = mhLoad('moods', []);
 
-// ── NAV ──
-function mhShow(page, btn) {
-  ['lessons','dashboard','flashcards','tutor','editor'].forEach(function(p){
-    var el = document.getElementById('mh-page-'+p);
-    if(el) el.style.display = p===page?'block':'none';
-    var tb = document.getElementById('mh-tab-'+p);
-    if(tb){ tb.style.background=p===page?'rgba(255,255,255,0.12)':'none'; tb.style.borderBottom=p===page?'3px solid #fff':'3px solid transparent'; tb.style.color=p===page?'#fff':'rgba(255,255,255,0.75)'; }
-  });
-  if(page==='dashboard') mhRenderDash();
-  if(page==='flashcards') mhRenderFcPage();
-  if(page==='tutor') mhInitTutor();
-  if(page==='editor') mhRenderEd();
+// ── STATUS ──
+function getStatus(w) {
+  var t = new Date(); t.setHours(0,0,0,0);
+  var s = new Date(w.start), e = new Date(w.end); e.setHours(23,59,59,999);
+  return t > e ? 'past' : t >= s ? 'current' : 'upcoming';
 }
+
+// ── ESC ──
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 // ── MOOD ──
-function mhMood(emoji){
-  var today=new Date().toISOString().split('T')[0];
-  MH_MOODS=MH_MOODS.filter(function(m){return m.d!==today});
-  MH_MOODS.push({d:today,m:emoji});
-  if(MH_MOODS.length>30) MH_MOODS=MH_MOODS.slice(-30);
-  mhSave('moods',MH_MOODS); mhRenderMood();
+function setMood(emoji) {
+  var today = new Date().toISOString().split('T')[0];
+  MOODS = MOODS.filter(function(m){ return m.d !== today; });
+  MOODS.push({d:today, m:emoji});
+  if (MOODS.length > 30) MOODS = MOODS.slice(-30);
+  mhSave('moods', MOODS);
+  renderMood();
 }
-function mhRenderMood(){
-  var today=new Date().toISOString().split('T')[0];
-  var tm=MH_MOODS.find(function(m){return m.d===today});
-  ['😩','😕','😐','🙂','🤩'].forEach(function(e){
-    var el=document.getElementById('mh-mood-'+e);
-    if(!el) return;
-    if(tm&&tm.m===e){el.style.border='2px solid #1976d2';el.style.background='#e3f2fd';}
-    else{el.style.border='2px solid transparent';el.style.background='transparent';}
+function renderMood() {
+  var today = new Date().toISOString().split('T')[0];
+  var tm = MOODS.find(function(m){ return m.d === today; });
+  document.querySelectorAll('.mood-emoji').forEach(function(el) {
+    el.classList.toggle('active', !!(tm && el.dataset.mood === tm.m));
   });
-  var streak=0,d=new Date();
-  for(var i=0;i<30;i++){var ds=d.toISOString().split('T')[0];if(MH_MOODS.find(function(m){return m.d===ds})){streak++;d.setDate(d.getDate()-1);}else break;}
-  var sEl=document.getElementById('mh-streak');
-  if(sEl) sEl.textContent=streak>1?'🔥 '+streak+' day streak':'';
-  var hEl=document.getElementById('mh-mood-history');
-  if(hEl) hEl.innerHTML=MH_MOODS.slice(-7).map(function(m){return '<span style="font-size:16px" title="'+m.d+'">'+m.m+'</span>';}).join('');
+  var streak = 0, d = new Date();
+  for (var i = 0; i < 30; i++) {
+    var ds = d.toISOString().split('T')[0];
+    if (MOODS.find(function(m){ return m.d === ds; })) { streak++; d.setDate(d.getDate()-1); } else break;
+  }
+  var sl = document.getElementById('streak-label');
+  if (sl) sl.textContent = streak > 1 ? '🔥'+streak : '';
 }
 
-// ── WEEKS ──
-function mhStatus(w){
-  var t=new Date();t.setHours(0,0,0,0);
-  var s=new Date(w.start),e=new Date(w.end);e.setHours(23,59,59,999);
-  return t>e?'past':t>=s?'current':'upcoming';
+// ── SAVE EXPLAIN ──
+function saveExp(key) {
+  var el = document.getElementById('exp-'+key);
+  if (!el) return;
+  EXP[key] = el.value;
+  mhSave('exp', EXP);
+  var ok = document.getElementById('exp-ok-'+key);
+  if (ok) { ok.style.display = 'inline'; setTimeout(function(){ ok.style.display='none'; }, 1800); }
 }
-function mhEsc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-function mhRenderWeeks(){
-  var nav=document.getElementById('mh-term-link');
-  if(nav){nav.textContent=MHD.termLabel||'⬅ Term 1';nav.href=MHD.termUrl||'#';}
-  var nt=document.getElementById('mh-nav-title');if(nt) nt.textContent=MHD.title||'Maths Hub';
-  document.title=(MHD.title||'Maths Hub');
-  var c=document.getElementById('mh-weeks');if(!c) return;
-  c.innerHTML='';
-  MHD.weeks.forEach(function(week,wi){
-    var st=mhStatus(week);
-    if(st==='current') MH_CUR_WEEK=week.id;
-    var hdrBg=st==='past'?'linear-gradient(135deg,#455a64,#607d8b)':st==='current'?'linear-gradient(135deg,#0a3880,#1565c0)':'linear-gradient(135deg,#1976d2,#2196f3)';
-    var hdrExtra=st==='current'?'box-shadow:0 0 0 3px #90caf9;':'';
-    var bdgBg=st==='past'?'#c8e6c9':st==='current'?'#fff9c4':'rgba(255,255,255,0.2)';
-    var bdgCol=st==='past'?'#1b5e20':st==='current'?'#e65100':'#fff';
-    var bdgTxt=st==='past'?'✓ Complete':st==='current'?'▶ In Progress':'◦ Upcoming';
-    var hwBg=st==='past'?'linear-gradient(135deg,#455a64,#607d8b)':st==='current'?'linear-gradient(135deg,#e65100,#f57c00)':'linear-gradient(135deg,#388e3c,#4caf50)';
 
-    var lessonsHtml=week.lessons.map(function(lesson,li){
-      var key=week.id+'_'+li;
-      var saved=MH_EXP[key]||'';
-      var acts=(lesson.activities||'').split('\n').filter(Boolean).map(function(l){return '<div style="padding:8px 10px;background:#e3f2fd;color:#444;font-size:13px;margin-bottom:3px;border-radius:4px">'+mhEsc(l)+'</div>';}).join('');
-      var crit=(lesson.criteria||'').split('\n').filter(Boolean).map(function(l){return mhEsc(l);}).join('<br>');
-      var res=(lesson.resources||'').split('\n').filter(Boolean).map(function(l){return '<div style="margin-bottom:4px;font-size:13px">'+mhEsc(l)+'</div>';}).join('');
-      return '<div style="display:grid;grid-template-columns:150px 1fr 170px;border-bottom:1px solid #e8ecf0">'+
-        '<div style="padding:16px;background:#f8f9fa;border-right:1px solid #e8ecf0">'+
-          '<div style="color:#1976d2;font-weight:700;font-size:14px">'+mhEsc(lesson.day)+'</div>'+
-          '<div style="color:#888;font-size:12px;margin-top:2px">'+mhEsc(lesson.date)+'</div>'+
-          '<div style="color:#aaa;font-size:12px;font-style:italic;margin-top:2px">'+mhEsc(lesson.period)+'</div>'+
-        '</div>'+
-        '<div style="padding:16px;border-right:1px solid #e8ecf0">'+
-          (lesson.intentions?'<div style="font-size:13px;font-weight:700;color:#1976d2;margin-bottom:4px">🎯 Learning Intentions:</div><div style="padding:7px 10px;border-left:3px solid #64b5f6;color:#444;font-size:13px;line-height:1.5;margin-bottom:10px">'+mhEsc(lesson.intentions)+'</div>':'')+
-          (lesson.criteria?'<div style="font-size:13px;font-weight:700;color:#1976d2;margin-bottom:4px">✅ Success Criteria:</div><div style="padding:7px 10px;border-left:3px solid #64b5f6;color:#444;font-size:13px;line-height:1.5;margin-bottom:10px">'+crit+'</div>':'')+
-          (lesson.activities?'<div style="font-size:13px;font-weight:700;color:#1976d2;margin-bottom:4px">📝 Activity:</div>'+acts:'')+
-          '<div style="margin-top:12px;padding:12px;background:#fffde7;border-radius:8px;border:1px solid #f9a825">'+
-            '<div style="font-size:12px;color:#e65100;font-weight:700;margin-bottom:6px">✍️ Explain it back — in your own words, what was this lesson about?</div>'+
-            '<textarea id="exp-'+key+'" style="width:100%;border:1px solid #ddd;border-radius:6px;padding:8px;font-size:13px;min-height:56px;resize:vertical;font-family:inherit;box-sizing:border-box" placeholder="Explain this lesson as if teaching a friend...">'+mhEsc(saved)+'</textarea>'+
-            '<button onclick="mhSaveExp(\''+key+'\')" style="margin-top:6px;padding:5px 14px;background:#1976d2;color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer;font-weight:700">Save ✓</button>'+
-            '<span id="exp-ok-'+key+'" style="display:none;font-size:11px;color:#388e3c;margin-left:8px">Saved!</span>'+
-          '</div>'+
-        '</div>'+
-        '<div style="padding:16px;background:#f8f9fa">'+res+'</div>'+
-      '</div>';
-    }).join('');
-
-    var html='<div style="background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,0.08);margin-bottom:14px;overflow:hidden">'+
-      '<div style="background:'+hdrBg+';'+hdrExtra+'padding:14px 18px;cursor:pointer;display:flex;align-items:center;gap:12px" onclick="mhToggle(\'mhwb-'+week.id+'\',\'mhchev-'+week.id+'\')">'+
-        '<span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;text-transform:uppercase;white-space:nowrap;background:'+bdgBg+';color:'+bdgCol+(st==='current'?';border:1px solid #f9a825':'')+'" >'+bdgTxt+'</span>'+
-        '<span style="flex:1;font-size:16px;font-weight:700;color:#fff">'+mhEsc(week.title)+'</span>'+
-        '<span id="mhchev-'+week.id+'" style="font-size:16px;color:#fff;transition:transform 0.3s"'+(st==='current'?' style="transform:rotate(180deg)"':'')+'>▾</span>'+
-      '</div>'+
-      '<div id="mhwb-'+week.id+'" style="display:'+(st==='current'?'block':'none')+'">'+
-        lessonsHtml+
-        '<div style="padding:14px 18px;display:flex;justify-content:flex-end;background:#f8f9fa;border-top:1px solid #e8ecf0">'+
-          '<a href="'+mhEsc(week.hwLink||'#')+'" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:'+hwBg+';color:#fff;text-decoration:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700">'+mhEsc(week.hwLabel||'Homework')+' →</a>'+
-        '</div>'+
-      '</div>'+
-    '</div>';
-    c.insertAdjacentHTML('beforeend',html);
-    if(st==='current'){var chev=document.getElementById('mhchev-'+week.id);if(chev)chev.style.transform='rotate(180deg)';}
+// ── TOGGLE WEEK ──
+function toggleWeek(id) {
+  var card = document.getElementById('wc-'+id);
+  if (!card) return;
+  var isOpen = card.classList.contains('open');
+  card.classList.toggle('open', !isOpen);
+  // update sidebar active
+  document.querySelectorAll('.week-nav-item').forEach(function(el) {
+    el.classList.toggle('active', el.dataset.week === id && !isOpen);
   });
 }
-function mhToggle(bodyId,chevId){
-  var b=document.getElementById(bodyId);
-  var ch=document.getElementById(chevId);
-  if(!b) return;
-  var open=b.style.display==='none';
-  b.style.display=open?'block':'none';
-  if(ch) ch.style.transform=open?'rotate(180deg)':'';
-}
 
-// ── EXPLAIN IT BACK ──
-function mhSaveExp(key){
-  var el=document.getElementById('exp-'+key);
-  if(!el) return;
-  MH_EXP[key]=el.value;
-  mhSave('exp',MH_EXP);
-  var ok=document.getElementById('exp-ok-'+key);
-  if(ok){ok.style.display='inline';setTimeout(function(){ok.style.display='none';},1800);}
-}
-
-// ── DASHBOARD ──
-function mhRenderDash(){
-  var grid=document.getElementById('mh-conf-grid');if(!grid) return;
-  grid.innerHTML='';
-  var topics=MHD.weeks.map(function(w){return{id:w.id,label:w.title.replace(/^Week \d+\s*[–-]\s*/,'')};});
-  topics.forEach(function(t){
-    var val=MH_CONF[t.id]||0;
-    var stars=[1,2,3,4,5].map(function(n){
-      return '<span onclick="mhSetConf(\''+t.id+'\','+n+')" style="font-size:22px;cursor:pointer;filter:'+(n<=val?'none':'grayscale(1)');+';opacity:'+(n<=val?'1':'0.4')+'" >⭐</span>';
-    }).join('');
-    var labels=['','Just started','Getting there','Mostly confident','Very confident','Got this! 🎉'];
-    grid.insertAdjacentHTML('beforeend',
-      '<div style="background:#f8f9fa;border-radius:10px;padding:14px;border:1px solid #e0e0e0">'+
-        '<div style="font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:8px">'+mhEsc(t.label)+'</div>'+
-        '<div style="display:flex;gap:4px;margin-bottom:4px">'+stars+'</div>'+
-        '<div style="font-size:11px;color:#888">'+(labels[val]||'Not rated yet — tap a star')+'</div>'+
-      '</div>');
-  });
-  mhDrawRadar(topics);
-}
-function mhSetConf(id,val){MH_CONF[id]=val;mhSave('conf',MH_CONF);mhRenderDash();}
-function mhDrawRadar(topics){
-  var canvas=document.getElementById('mh-radar');if(!canvas) return;
-  var ctx=canvas.getContext('2d');
-  var W=canvas.width,H=canvas.height,cx=W/2,cy=H/2+10,r=Math.min(W,H)/2-54;
-  ctx.clearRect(0,0,W,H);
-  var n=topics.length;
-  if(n<3){ctx.fillStyle='#aaa';ctx.font='14px sans-serif';ctx.textAlign='center';ctx.fillText('Add 3+ weeks to see radar',cx,cy);return;}
-  var angs=topics.map(function(_,i){return(i/n)*Math.PI*2-Math.PI/2;});
-  [1,2,3,4,5].forEach(function(ring){
-    ctx.beginPath();
-    angs.forEach(function(a,i){var x=cx+Math.cos(a)*r*ring/5,y=cy+Math.sin(a)*r*ring/5;i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);});
-    ctx.closePath();ctx.strokeStyle='#e0e0e0';ctx.lineWidth=1;ctx.stroke();
-  });
-  angs.forEach(function(a,i){
-    ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(a)*r,cy+Math.sin(a)*r);ctx.strokeStyle='#e0e0e0';ctx.stroke();
-    var lx=cx+Math.cos(a)*(r+22),ly=cy+Math.sin(a)*(r+22);
-    ctx.fillStyle='#555';ctx.font='10px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
-    ctx.fillText(topics[i].label.split(' ').slice(0,2).join(' '),lx,ly);
-  });
-  ctx.beginPath();
-  angs.forEach(function(a,i){var v=MH_CONF[topics[i].id]||0,x=cx+Math.cos(a)*r*v/5,y=cy+Math.sin(a)*r*v/5;i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);});
-  ctx.closePath();ctx.fillStyle='rgba(25,118,210,0.18)';ctx.fill();ctx.strokeStyle='#1976d2';ctx.lineWidth=2.5;ctx.stroke();
-  angs.forEach(function(a,i){var v=MH_CONF[topics[i].id]||0;ctx.beginPath();ctx.arc(cx+Math.cos(a)*r*v/5,cy+Math.sin(a)*r*v/5,5,0,Math.PI*2);ctx.fillStyle='#1976d2';ctx.fill();});
-}
-
-// ── FLASHCARDS ──
-function mhRenderFcPage(){
-  var sel=document.getElementById('mh-fc-sel');if(!sel) return;
-  sel.innerHTML='<option value="">Select a week\'s deck...</option>';
-  MHD.weeks.forEach(function(w){if(w.flashcards&&w.flashcards.length){var o=document.createElement('option');o.value=w.id;o.textContent=w.title.replace(/^Week \d+\s*[–-]\s*/,'')+' ('+w.flashcards.length+' cards)';sel.appendChild(o);}});
-  mhFcUpdateStats();
-}
-function mhLoadDeck(wid){
-  if(!wid) return;
-  var week=MHD.weeks.find(function(w){return w.id===wid;});if(!week||!week.flashcards) return;
-  MH_FC_DECK=week.flashcards.map(function(c,i){return{q:c.q,a:c.a,state:'unseen'};});
-  MH_FC_IDX=0;MH_FC_FLIPPED=false;
-  document.getElementById('mh-fc-inner').style.transform='';
-  document.getElementById('mh-fc-actions').style.display='none';
-  mhFcShow();mhFcUpdateStats();
-}
-function mhFcShuffle(){for(var i=MH_FC_DECK.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=MH_FC_DECK[i];MH_FC_DECK[i]=MH_FC_DECK[j];MH_FC_DECK[j]=t;}MH_FC_IDX=0;MH_FC_FLIPPED=false;document.getElementById('mh-fc-inner').style.transform='';document.getElementById('mh-fc-actions').style.display='none';mhFcShow();}
-function mhFcReset(){MH_FC_DECK.forEach(function(c){c.state='unseen';});MH_FC_IDX=0;MH_FC_FLIPPED=false;document.getElementById('mh-fc-inner').style.transform='';document.getElementById('mh-fc-actions').style.display='none';mhFcShow();mhFcUpdateStats();}
-function mhFcShow(){if(!MH_FC_DECK.length) return;var c=MH_FC_DECK[MH_FC_IDX];document.getElementById('mh-fc-q').textContent=c.q;document.getElementById('mh-fc-a').textContent=c.a;document.getElementById('mh-fc-prog').textContent='Card '+(MH_FC_IDX+1)+' of '+MH_FC_DECK.length;}
-function mhFcFlip(){MH_FC_FLIPPED=!MH_FC_FLIPPED;document.getElementById('mh-fc-inner').style.transform=MH_FC_FLIPPED?'rotateY(180deg)':'';document.getElementById('mh-fc-actions').style.display=MH_FC_FLIPPED?'flex':'none';}
-function mhFcMark(known){if(!MH_FC_DECK.length) return;MH_FC_DECK[MH_FC_IDX].state=known?'known':'unknown';mhFcUpdateStats();MH_FC_FLIPPED=false;document.getElementById('mh-fc-inner').style.transform='';document.getElementById('mh-fc-actions').style.display='none';if(MH_FC_IDX<MH_FC_DECK.length-1){MH_FC_IDX++;mhFcShow();}else{document.getElementById('mh-fc-q').textContent='🎉 Deck complete! Hit shuffle to go again.';}}
-function mhFcUpdateStats(){document.getElementById('mh-fc-known').textContent=MH_FC_DECK.filter(function(c){return c.state==='known';}).length;document.getElementById('mh-fc-unk').textContent=MH_FC_DECK.filter(function(c){return c.state==='unknown';}).length;document.getElementById('mh-fc-uns').textContent=MH_FC_DECK.filter(function(c){return c.state==='unseen';}).length;}
-
-// ── AI TUTOR ──
-function mhInitTutor(){
-  var key=mhLoad('gemKey',null);
-  document.getElementById('mh-tutor-setup').style.display=key?'none':'block';
-  document.getElementById('mh-tutor-ready').style.display=key?'block':'none';
-  if(key) mhSetTutorCtx();
-}
-function mhSaveKey(){var k=document.getElementById('mh-gem-key').value.trim();if(!k) return;mhSave('gemKey',k);mhInitTutor();}
-function mhClearKey(){mhSave('gemKey',null);document.getElementById('mh-tutor-setup').style.display='block';document.getElementById('mh-tutor-ready').style.display='none';}
-function mhSetTutorCtx(){
-  var cw=MHD.weeks.find(function(w){return w.id===MH_CUR_WEEK;});
-  document.getElementById('mh-tutor-topic').textContent='📖 '+(cw?'Current topic: '+cw.title:'Ask me anything about this term\'s topics.');
-  var prompts=cw?['Explain '+cw.title.replace(/^Week \d+\s*[–-]\s*/,''),'Give me a worked example','What are common mistakes?','Quiz me on this topic']:['What topics does this term cover?','Give me a revision tip','Quiz me on something'];
-  document.getElementById('mh-starters').innerHTML=prompts.map(function(p){return '<button onclick="mhQuick(\''+p.replace(/'/g,"\\'")+'\')" style="padding:7px 13px;border-radius:20px;border:1px solid #1976d2;background:#e3f2fd;color:#0d47a1;font-size:12px;cursor:pointer;font-weight:600">'+p+'</button>';}).join('');
-}
-function mhQuick(t){document.getElementById('mh-tutor-in').value=t;mhSend();}
-async function mhSend(){
-  var inp=document.getElementById('mh-tutor-in');var msg=inp.value.trim();if(!msg) return;
-  var key=mhLoad('gemKey',null);if(!key) return;
-  inp.value='';mhAddMsg(msg,'user');
-  MH_TUTOR_HIST.push({role:'user',parts:[{text:msg}]});
-  var thinking=mhAddMsg('Thinking...','ai-think');
-  try{
-    var res=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key='+key,{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({system_instruction:{parts:[{text:MHD.systemPrompt||'You are a helpful maths tutor.'}]},contents:MH_TUTOR_HIST})
-    });
-    var data=await res.json();
-    if(data.error) throw new Error(data.error.message);
-    var reply=data.candidates[0].content.parts[0].text;
-    thinking.remove();mhAddMsg(reply,'ai');
-    MH_TUTOR_HIST.push({role:'model',parts:[{text:reply}]});
-  }catch(e){thinking.remove();mhAddMsg('Error: '+e.message,'ai');}
-}
-function mhAddMsg(text,cls){
-  var msgs=document.getElementById('mh-tutor-msgs');
-  var d=document.createElement('div');
-  var isUser=cls==='user';var isThink=cls==='ai-think';
-  d.style.cssText='max-width:80%;padding:10px 14px;border-radius:10px;font-size:14px;line-height:1.5;'+(isUser?'background:#1976d2;color:#fff;align-self:flex-end;border-bottom-right-radius:3px;margin-left:auto':'background:#fff;border:1px solid #e0e0e0;align-self:flex-start;border-bottom-left-radius:3px;'+(isThink?'color:#aaa;font-style:italic':''));
-  d.textContent=text;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;return d;
-}
-
-// ── EDITOR ──
-function mhUnlock(){
-  if(document.getElementById('mh-pw').value===(MHD.editorPw||'teacher123')){
-    MH_UNLOCKED=true;document.getElementById('mh-ed-lock').style.display='none';document.getElementById('mh-ed-content').style.display='block';mhRenderEd();
-  }else{var e=document.getElementById('mh-pw-err');e.textContent='Incorrect password.';setTimeout(function(){e.textContent='';},2000);}
-}
-function mhLock(){MH_UNLOCKED=false;document.getElementById('mh-ed-lock').style.display='block';document.getElementById('mh-ed-content').style.display='none';document.getElementById('mh-pw').value='';}
-function mhRenderEd(){
-  if(!MH_UNLOCKED) return;
-  document.getElementById('ed-title').value=MHD.title||'';
-  document.getElementById('ed-term-lbl').value=MHD.termLabel||'';
-  document.getElementById('ed-term-url').value=MHD.termUrl||'';
-  document.getElementById('ed-prompt').value=MHD.systemPrompt||'';
-  document.getElementById('ed-pw').value='';
-  var list=document.getElementById('mh-ed-weeks');list.innerHTML='';
-  MHD.weeks.forEach(function(week,wi){
-    var fcHtml=(week.flashcards||[]).map(function(fc,fi){
-      return '<div style="display:grid;grid-template-columns:1fr 1fr 32px;gap:6px;margin-bottom:6px;align-items:center">'+
-        '<input value="'+mhEsc(fc.q)+'" placeholder="Question" oninput="MHD.weeks['+wi+'].flashcards['+fi+'].q=this.value" style="border:1px solid #90caf9;border-radius:6px;padding:5px 8px;font-size:12px;box-sizing:border-box">'+
-        '<input value="'+mhEsc(fc.a)+'" placeholder="Answer" oninput="MHD.weeks['+wi+'].flashcards['+fi+'].a=this.value" style="border:1px solid #90caf9;border-radius:6px;padding:5px 8px;font-size:12px;box-sizing:border-box">'+
-        '<div onclick="mhDelFc('+wi+','+fi+')" style="background:#fce8e8;border:1px solid #ef9a9a;border-radius:6px;cursor:pointer;font-size:14px;color:#c62828;font-weight:700;width:32px;height:32px;display:flex;align-items:center;justify-content:center">✕</div>'+
-      '</div>';
-    }).join('');
-
-    var lesHtml=(week.lessons||[]).map(function(l,li){
-      return '<div style="background:#fff;border-radius:6px;padding:8px 12px;margin-top:6px;border:1px solid #e0e0e0;font-size:13px;display:flex;align-items:center;gap:8px">'+
-        '<span style="font-weight:700;color:#1976d2;min-width:100px">'+mhEsc(l.day)+' '+mhEsc(l.date)+'</span>'+
-        '<span style="flex:1;color:#444">'+mhEsc((l.intentions||'').substring(0,55))+'...</span>'+
-        '<button onclick="mhEditLesson('+wi+','+li+')" style="padding:5px 12px;border-radius:6px;border:1px solid #ddd;background:#fff;font-size:12px;font-weight:600;cursor:pointer">Edit</button>'+
-        '<button onclick="mhDelLesson('+wi+','+li+')" style="padding:5px 10px;border-radius:6px;border:1px solid #ef9a9a;background:#fff;color:#c62828;font-size:12px;font-weight:600;cursor:pointer">✕</button>'+
-      '</div>';
-    }).join('');
-
-    list.insertAdjacentHTML('beforeend',
-      '<div style="background:#f8f9fa;border-radius:10px;padding:14px;margin-bottom:10px;border:1px solid #e0e0e0">'+
-        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">'+
-          '<div><div style="font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px">Week title</div><input value="'+mhEsc(week.title)+'" oninput="MHD.weeks['+wi+'].title=this.value" style="width:100%;border:1px solid #ddd;border-radius:6px;padding:8px 10px;font-size:13px;box-sizing:border-box"></div>'+
-          '<div><div style="font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px">HW link</div><input value="'+mhEsc(week.hwLink||'')+'" oninput="MHD.weeks['+wi+'].hwLink=this.value" style="width:100%;border:1px solid #ddd;border-radius:6px;padding:8px 10px;font-size:13px;box-sizing:border-box"></div>'+
-        '</div>'+
-        '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px">'+
-          '<div><div style="font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px">Start date</div><input type="date" value="'+mhEsc(week.start||'')+'" oninput="MHD.weeks['+wi+'].start=this.value" style="width:100%;border:1px solid #ddd;border-radius:6px;padding:8px 10px;font-size:13px;box-sizing:border-box"></div>'+
-          '<div><div style="font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px">End date</div><input type="date" value="'+mhEsc(week.end||'')+'" oninput="MHD.weeks['+wi+'].end=this.value" style="width:100%;border:1px solid #ddd;border-radius:6px;padding:8px 10px;font-size:13px;box-sizing:border-box"></div>'+
-          '<div><div style="font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px">HW label</div><input value="'+mhEsc(week.hwLabel||'')+'" oninput="MHD.weeks['+wi+'].hwLabel=this.value" style="width:100%;border:1px solid #ddd;border-radius:6px;padding:8px 10px;font-size:13px;box-sizing:border-box"></div>'+
-        '</div>'+
-        '<div style="font-size:12px;font-weight:700;color:#555;margin-bottom:4px">Lessons</div>'+lesHtml+
-        '<div style="display:flex;gap:8px;margin-top:8px">'+
-          '<button onclick="mhAddLesson('+wi+')" style="padding:6px 14px;background:#0d47a1;color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer">+ Add lesson</button>'+
-          '<button onclick="mhDelWeek('+wi+')" style="padding:6px 14px;background:#fff;color:#c62828;border:1px solid #ef9a9a;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer">✕ Remove week</button>'+
-        '</div>'+
-        '<div style="background:#e3f2fd;border-radius:8px;padding:12px;margin-top:10px">'+
-          '<div style="font-size:12px;font-weight:700;color:#0d47a1;margin-bottom:6px">Flashcards for this week</div>'+
-          '<div id="mhfcp-'+wi+'">'+fcHtml+'</div>'+
-          '<button onclick="mhAddFc('+wi+')" style="margin-top:4px;padding:5px 12px;background:#1976d2;color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer;font-weight:700">+ Add card</button>'+
-        '</div>'+
+// ── RENDER SIDEBAR ──
+function renderSidebar() {
+  var nav = document.getElementById('week-nav');
+  if (!nav) return;
+  nav.innerHTML = '';
+  var completed = 0;
+  DATA.weeks.forEach(function(week, wi) {
+    var st = getStatus(week);
+    if (st === 'past') completed++;
+    var dotClass = st === 'past' ? 'past' : st === 'current' ? 'current' : 'upcoming';
+    var badgeText = st === 'past' ? 'Done' : st === 'current' ? 'Now' : '';
+    var badgeClass = st === 'past' ? 'badge-past' : st === 'current' ? 'badge-current' : '';
+    nav.insertAdjacentHTML('beforeend',
+      '<div class="week-nav-item'+(st==='current'?' current':'')+'" data-week="'+week.id+'" onclick="scrollToWeek(\''+week.id+'\')">' +
+        '<div class="wni-dot '+dotClass+'"></div>' +
+        '<div class="wni-label">Wk '+(wi+1)+' · '+esc(week.title)+'</div>' +
+        (badgeText ? '<span class="wni-badge '+badgeClass+'">'+badgeText+'</span>' : '') +
       '</div>'
     );
   });
+  // progress
+  var pct = DATA.weeks.length > 0 ? Math.round(completed/DATA.weeks.length*100) : 0;
+  var fill = document.getElementById('sp-fill');
+  var txt = document.getElementById('sp-text');
+  if (fill) fill.style.width = pct+'%';
+  if (txt) txt.textContent = completed+' / '+DATA.weeks.length;
 }
-function mhAddWeek(){MHD.weeks.push({id:'w'+Date.now(),title:'New Week',start:'',end:'',hwLink:'',hwLabel:'Homework',flashcards:[],lessons:[]});mhRenderEd();}
-function mhDelWeek(wi){if(!confirm('Delete this week?')) return;MHD.weeks.splice(wi,1);mhRenderEd();}
-function mhAddLesson(wi){MHD.weeks[wi].lessons=MHD.weeks[wi].lessons||[];MHD.weeks[wi].lessons.push({day:'Monday',date:'',period:'Period 1',intentions:'',criteria:'',activities:'',resources:''});mhRenderEd();mhEditLesson(wi,MHD.weeks[wi].lessons.length-1);}
-function mhDelLesson(wi,li){if(!confirm('Delete this lesson?')) return;MHD.weeks[wi].lessons.splice(li,1);mhRenderEd();}
-function mhEditLesson(wi,li){
-  var l=MHD.weeks[wi].lessons[li];
-  var flds=[['day','Day name'],['date','Date (DD/MM/YYYY)'],['period','Period'],['intentions','Learning intentions'],['criteria','Success criteria (one per line)'],['activities','Activities (one per line)'],['resources','Resources / links']];
-  var html='<div id="mh-modal" style="position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px">'+
-    '<div style="background:#fff;border-radius:14px;padding:24px;width:100%;max-width:620px;max-height:90vh;overflow-y:auto;box-sizing:border-box">'+
-    '<div style="font-size:16px;font-weight:700;color:#0d47a1;margin-bottom:16px">Edit lesson</div>';
-  flds.forEach(function(f){
-    var isLong=['intentions','criteria','activities','resources'].includes(f[0]);
-    html+='<div style="margin-bottom:10px"><div style="font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px">'+f[1]+'</div>';
-    if(isLong) html+='<textarea id="mel-'+f[0]+'" style="width:100%;border:1px solid #ddd;border-radius:6px;padding:8px 10px;font-size:13px;min-height:70px;resize:vertical;font-family:inherit;box-sizing:border-box">'+mhEsc(l[f[0]]||'')+'</textarea>';
-    else html+='<input id="mel-'+f[0]+'" value="'+mhEsc(l[f[0]]||'')+'" style="width:100%;border:1px solid #ddd;border-radius:6px;padding:8px 10px;font-size:13px;box-sizing:border-box">';
-    html+='</div>';
+
+function scrollToWeek(id) {
+  var card = document.getElementById('wc-'+id);
+  if (!card) return;
+  if (!card.classList.contains('open')) toggleWeek(id);
+  card.scrollIntoView({behavior:'smooth', block:'start'});
+  document.querySelectorAll('.week-nav-item').forEach(function(el) {
+    el.classList.toggle('active', el.dataset.week === id);
   });
-  html+='<div style="display:flex;gap:10px;margin-top:14px">'+
-    '<button onclick="mhSaveLesson('+wi+','+li+')" style="padding:10px 24px;background:#0d47a1;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer">Save lesson</button>'+
-    '<button onclick="document.getElementById(\'mh-modal\').remove()" style="padding:10px 20px;background:#fff;border:1px solid #ddd;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer">Cancel</button>'+
-  '</div></div></div>';
-  document.body.insertAdjacentHTML('beforeend',html);
 }
-function mhSaveLesson(wi,li){
-  ['day','date','period','intentions','criteria','activities','resources'].forEach(function(f){var el=document.getElementById('mel-'+f);if(el) MHD.weeks[wi].lessons[li][f]=el.value;});
-  document.getElementById('mh-modal').remove();mhRenderEd();
-}
-function mhAddFc(wi){MHD.weeks[wi].flashcards=MHD.weeks[wi].flashcards||[];MHD.weeks[wi].flashcards.push({q:'',a:''});mhRenderEd();}
-function mhDelFc(wi,fi){MHD.weeks[wi].flashcards.splice(fi,1);mhRenderEd();}
-function mhSaveAll(){
-  if(document.getElementById('ed-pw').value) MHD.editorPw=document.getElementById('ed-pw').value;
-  MHD.title=document.getElementById('ed-title').value;
-  MHD.termLabel=document.getElementById('ed-term-lbl').value;
-  MHD.termUrl=document.getElementById('ed-term-url').value;
-  MHD.systemPrompt=document.getElementById('ed-prompt').value;
-  mhSave('data',MHD);
-  var b=document.getElementById('mh-save-banner');b.style.display='block';setTimeout(function(){b.style.display='none';},2500);
-  mhRenderWeeks();
+
+// ── RENDER WEEKS ──
+function renderWeeks() {
+  // update titles
+  var topTitle = document.getElementById('top-title');
+  if (topTitle) topTitle.textContent = DATA.title || 'Maths Hub';
+  var termBtn = document.getElementById('term-btn');
+  if (termBtn) { termBtn.textContent = DATA.termLabel || '← Term 1'; termBtn.href = DATA.termUrl || '#'; }
+  var termSide = document.getElementById('term-link-sidebar');
+  if (termSide) { termSide.textContent = DATA.termLabel || '← Term 1'; termSide.href = DATA.termUrl || '#'; }
+
+  var container = document.getElementById('weeks-container');
+  if (!container) return;
+  container.innerHTML = '';
+
+  DATA.weeks.forEach(function(week, wi) {
+    var st = getStatus(week);
+    var statusClass = st;
+    var statusText = st === 'past' ? 'Complete' : st === 'current' ? 'In Progress' : 'Upcoming';
+
+    var lessonsHtml = week.lessons.map(function(lesson, li) {
+      var key = week.id+'_'+li;
+      var saved = EXP[key] || '';
+      var acts = (lesson.activities||'').split('\n').filter(Boolean)
+        .map(function(l){ return '<div class="activity-chip">'+esc(l)+'</div>'; }).join('');
+      var crit = (lesson.criteria||'').split('\n').filter(Boolean)
+        .map(function(l){ return esc(l); }).join('<br>');
+      var res = (lesson.resources||'').split('\n').filter(Boolean)
+        .map(function(l){ return '<a class="resource-link" href="#">'+esc(l)+'</a>'; }).join('');
+
+      return '<div class="lesson">' +
+        '<div class="lesson-meta">' +
+          '<div class="lesson-day">'+esc(lesson.day)+'</div>' +
+          '<div class="lesson-date">'+esc(lesson.date)+'</div>' +
+          '<div class="lesson-period">'+esc(lesson.period)+'</div>' +
+        '</div>' +
+        '<div class="lesson-content">' +
+          (lesson.intentions ?
+            '<div class="content-section">🎯 Intentions</div>' +
+            '<div class="intent-block">'+esc(lesson.intentions)+'</div>' : '') +
+          (lesson.criteria ?
+            '<div class="content-section">✅ Success Criteria</div>' +
+            '<div class="intent-block">'+crit+'</div>' : '') +
+          (lesson.activities ?
+            '<div class="content-section">📝 Activities</div>' + acts : '') +
+          '<div class="explain-box">' +
+            '<div class="explain-label">✍️ Explain it back</div>' +
+            '<textarea class="explain-textarea" id="exp-'+key+'" placeholder="Explain this lesson in your own words...">'+esc(saved)+'</textarea>' +
+            '<button class="explain-save" onclick="saveExp(\''+key+'\')">Save</button>' +
+            '<span class="explain-ok" id="exp-ok-'+key+'">✓ Saved</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="lesson-resources">'+res+'</div>' +
+      '</div>';
+    }).join('');
+
+    var hwBtnClass = st === 'past' ? 'past' : st === 'current' ? 'current' : 'upcoming';
+
+    var html =
+      '<div class="week-card'+(st==='current'?' is-current':'')+'" id="wc-'+week.id+'">' +
+        '<div class="week-card-header" onclick="toggleWeek(\''+week.id+'\')">' +
+          '<span class="week-number">Week '+(wi+1).toString().padStart(2,'0')+'</span>' +
+          '<span class="week-title-text">'+esc(week.title)+'</span>' +
+          '<div class="week-meta">' +
+            '<span class="status-pill '+statusClass+'">' +
+              '<span class="status-dot '+statusClass+'"></span>'+statusText+
+            '</span>' +
+          '</div>' +
+          '<span class="week-chevron">▾</span>' +
+        '</div>' +
+        '<div class="week-body">' +
+          lessonsHtml +
+          '<div class="hw-row">' +
+            '<a href="'+esc(week.hwLink||'#')+'" target="_blank" rel="noopener" class="hw-btn '+hwBtnClass+'">'+esc(week.hwLabel||'Homework')+' →</a>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+
+    container.insertAdjacentHTML('beforeend', html);
+
+    // auto-open current week
+    if (st === 'current') {
+      var card = document.getElementById('wc-'+week.id);
+      if (card) card.classList.add('open');
+    }
+  });
 }
 
 // ── INIT ──
-mhRenderMood();
-mhRenderWeeks();
-</script>
-</div>
+renderMood();
+renderSidebar();
+renderWeeks();
 
+// scroll current week into view after render
+setTimeout(function() {
+  var cur = document.querySelector('.week-card.is-current');
+  if (cur) cur.scrollIntoView({behavior:'smooth', block:'start'});
+}, 200);
+</script>
 </body>
 </html>
