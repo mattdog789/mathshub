@@ -1,0 +1,437 @@
+[
+  {
+    "id": "w0",
+    "n": 1,
+    "title": "Definite Integrals / Areas Under Curves",
+    "start": "2026-04-22",
+    "end": "2026-04-25",
+    "hw": "https://sec.instructure.com/courses/9697/quizzes/7241",
+    "hwLabel": "HW Week 1",
+    "lessons": [
+      {
+        "day": "Tuesday",
+        "date": "22/04/2026",
+        "period": "Period 1",
+        "intentions": "To understand the definite integral as a tool for calculating the exact accumulated area under a curve between two specific boundaries.",
+        "criteria": "Explain the difference between finding a general equation (indefinite) and finding an exact number like an area (definite).\nDescribe the steps to find total area: find the reverse equation, plug in the end point, plug in the start point, and subtract.\nExplain why an area that dips below the horizontal axis counts as a negative amount that shrinks the overall total.",
+        "activities": "1. The Definite Integral.pptx\n2. Solutions: The definite integral.pdf\n3. Ex4.05 p.186 Q4a) c), Q5b) d), Q6b) e) g) j)",
+        "resources": "NELSON 4.05.pdf",
+        "files": []
+      },
+      {
+        "day": "Wednesday",
+        "date": "23/04/2026",
+        "period": "Period 3",
+        "intentions": "To understand the definite integral as a tool for calculating the exact accumulated area under a curve between two specific boundaries.",
+        "criteria": "Explain the difference between finding a general equation (indefinite) and finding an exact number like an area (definite).\nDescribe the steps to find total area: find the reverse equation, plug in the end point, plug in the start point, and subtract.\nExplain why an area that dips below the horizontal axis counts as a negative amount that shrinks the overall total.",
+        "activities": "1. More Definite Integrals.pptx\n2. Solutions: More definite integrals.pdf\n3. Ex4.06 p.190 Q1c) f) h) j), Q2a) e), Q3c) e), Q4b) d), Q5d), Q6d), Q7",
+        "resources": "NELSON 4.06.pdf",
+        "files": []
+      },
+      {
+        "day": "Thursday",
+        "date": "24/04/2026",
+        "period": "Period 5",
+        "intentions": "To understand how to identify, calculate, and interpret the total space trapped between a graphed line and the horizontal base line.",
+        "criteria": "Identify the exact shape created by the graph, the horizontal base line, and the starting and ending boundaries.\nExplain that this trapped space represents a total accumulated amount, such as the total distance traveled over a specific period.\nRecognise that space above the base line adds to the total amount, while space below it subtracts from the total.",
+        "activities": "1. Areas Under Curves.pptx\n2. Solution Videos: Solution 1.mp4 | Solution 2.mp4\n3. Complete worksheet: Physical Areas.pdf",
+        "resources": "Physical Areas.pdf",
+        "files": []
+      },
+      {
+        "day": "Friday",
+        "date": "25/04/2026",
+        "period": "Period 1",
+        "intentions": "",
+        "criteria": "",
+        "activities": "1. Work through Example 2 as a class.\n2. Continue the worksheet from last lesson.",
+        "resources": "Physical Areas.pdf",
+        "files": []
+      }
+    ]
+  },
+  {
+    "id": "w1",
+    "n": 2,
+    "title": "Areas Between Curves",
+    "start": "2026-04-28",
+    "end": "2026-05-01",
+    "hw": "https://sec.instructure.com/courses/9697/quizzes/7271",
+    "hwLabel": "HW Week 2",
+    "lessons": [
+      {
+        "day": "Monday",
+        "date": "28/04/2026",
+        "period": "Period 3&4",
+        "intentions": "",
+        "criteria": "",
+        "activities": "Public Holiday",
+        "resources": "",
+        "files": []
+      },
+      {
+        "day": "Tuesday",
+        "date": "30/04/2026",
+        "period": "Period 6",
+        "intentions": "To understand how to determine the exact amount of space enclosed between two graphed lines.",
+        "criteria": "Identify which line forms the ceiling (top boundary) and which forms the floor (bottom boundary) of the trapped shape.\nFind the exact left and right edges of the shape by determining where the two lines intersect.\nExplain that the trapped area is found by subtracting the area under the bottom line from the area under the top line.",
+        "activities": "1. Areas between curves.pptx\n2. Solution videos: Solution 1.mp4 | Solution 2.mp4",
+        "resources": "Calculating Areas between curves.pdf",
+        "files": []
+      }
+    ]
+  },
+  {
+    "id": "w2",
+    "n": 3,
+    "title": "Total Change / Integration in Motion",
+    "start": "2026-05-06",
+    "end": "2026-05-09",
+    "hw": "https://sec.instructure.com/courses/9697/quizzes/7274",
+    "hwLabel": "HW Week 3",
+    "lessons": [
+      {
+        "day": "Tuesday",
+        "date": "06/05/2026",
+        "period": "Period 1",
+        "intentions": "To understand how finding the space under a rate-of-change graph reveals the total amount of change that has happened over a period of time.",
+        "criteria": "Explain that if a graph shows how fast something is happening, the space under the line shows the total amount accumulated.\nDetermine whether the total amount is growing or shrinking based on if the graph is above or below the zero line.\nFind the final total by taking the initial starting amount and combining it with the accumulated changes shown on the graph.",
+        "activities": "1. Total Change.pptx\n2. Complete worksheet (p.1-2 only): Total Change.pdf",
+        "resources": "Total Change.pdf (p.1-2 only)",
+        "files": []
+      },
+      {
+        "day": "Wednesday",
+        "date": "07/05/2026",
+        "period": "Period 3",
+        "intentions": "To understand how finding the accumulated space under motion graphs allows us to work backward from acceleration to speed, and from speed to distance traveled.",
+        "criteria": "Explain that the space under an acceleration graph shows the total change in a moving object's speed.\nExplain that the space under a speed graph shows the total distance an object has traveled.\nDetermine an object's exact final speed or location by taking its starting value and combining it with the total change shown on the graph.",
+        "activities": "1. Application of Integration to Motion.pptx\n2. Solutions: Example 2.pdf\n3. Ex6.07 p.283 Q4, Q10, Q12, Q15",
+        "resources": "NELSON 6.07.pdf",
+        "files": []
+      }
+    ]
+  },
+  {
+    "id": "w3",
+    "n": 4,
+    "title": "Expected Value and Variance",
+    "start": "2026-05-12",
+    "end": "2026-05-15",
+    "hw": "https://sec.instructure.com/courses/9697/quizzes/7275",
+    "hwLabel": "HW Week 4",
+    "lessons": [
+      {
+        "day": "Monday",
+        "date": "12/05/2026",
+        "period": "Period 3&4",
+        "intentions": "To understand how to map out and visualise the exact chances for every possible outcome of a countable event.",
+        "criteria": "Explain that a distribution is a complete summary showing every possible result and its specific likelihood of happening.\nVerify that a distribution is accurate by checking that all the individual chances add up to 100%.\nUse the summary table or chart to figure out the likelihood of a single result or a combination of results.",
+        "activities": "1. Discrete Probability Distributions.pptx\n2. Solutions: Discrete Probability Distributions.pdf\n3. Ex11C Q1-2, Q4-6, Q11-12.",
+        "resources": "CAMBRIDGE 11C - Discrete Random Variables.pdf",
+        "files": []
+      },
+      {
+        "day": "Tuesday",
+        "date": "13/05/2026",
+        "period": "Period 6",
+        "intentions": "To understand expected value as the predictable, long-term average result of a random event if you were to repeat it over and over again.",
+        "criteria": "Explain that the expected result is the average across hundreds or thousands of tries, not what happens on one single try.\nDescribe how to find this average by weighing the value of every possible outcome against its specific likelihood.\nUse this long-term average to evaluate if a scenario is fair, or if it favours a win or a loss over time.",
+        "activities": "1. Ex2.06 Expected Value.pdf\n2. Ex2.06 p.75 Q1, Q3, Q6, Q10, Q12, Q14",
+        "resources": "NELSON 2.06.pdf",
+        "files": []
+      },
+      {
+        "day": "Thursday",
+        "date": "14/05/2026",
+        "period": "Period 3",
+        "intentions": "To understand how to measure and describe how spread out or tightly clustered a set of data is around its middle average.",
+        "criteria": "Explain the difference between knowing the average and knowing the spread of the data.\nDescribe what different spreads look like: tightly packed data has a low spread, widely scattered data has a high spread.\nExplain that standard deviation is the standard way we measure typical distance away from the mean.",
+        "activities": "1. Variance and Standard Deviation.pptx\n2. Ex2.07 p.81 Q2, Q4, Q7, Q10, Q14, Q17",
+        "resources": "NELSON 2.07.pdf",
+        "files": []
+      }
+    ]
+  },
+  {
+    "id": "w4",
+    "n": 5,
+    "title": "Distributions",
+    "start": "2026-05-19",
+    "end": "2026-05-22",
+    "hw": "https://sec.instructure.com/courses/9697/quizzes/7276",
+    "hwLabel": "HW Week 5",
+    "lessons": [
+      {
+        "day": "Tuesday",
+        "date": "19/05/2026",
+        "period": "Period 1",
+        "intentions": "",
+        "criteria": "",
+        "activities": "Assessment Task Validation — Submit all parts.",
+        "resources": "",
+        "files": []
+      },
+      {
+        "day": "Wednesday",
+        "date": "20/05/2026",
+        "period": "Period 3",
+        "intentions": "To understand how calculating long-term averages and spreads helps us make smart decisions in real-world scenarios.",
+        "criteria": "Identify real-world situations where analysing discrete outcomes is useful.\nUse the long-term average to decide if a financial choice will profit or cause a loss.\nExplain how knowing the spread helps prepare for worst-case scenarios.",
+        "activities": "1. Applications of Discrete Random Variables.pptx\n2. Ex2.08 p.87 Q1, Q2, Q6, Q7, Q9, Q15\n3. Complete Chapter 2 Review",
+        "resources": "NELSON 2.08.pdf",
+        "files": []
+      },
+      {
+        "day": "Thursday",
+        "date": "21/05/2026",
+        "period": "Period 5",
+        "intentions": "To understand how calculating long-term averages and spreads helps us make smart decisions in real-world scenarios.",
+        "criteria": "Identify real-world situations where analysing discrete outcomes is useful.\nUse the long-term average to decide if a financial choice will profit or cause a loss.\nExplain how knowing the spread helps prepare for worst-case scenarios.",
+        "activities": "1. Applications of Discrete Random Variables.pptx\n2. Ex2.08 p.87 Q1, Q2, Q6, Q7, Q9, Q15\n3. Complete Chapter 2 Review",
+        "resources": "NELSON 2.08.pdf\nNELSON Chapter 2 Review.pdf",
+        "files": []
+      },
+      {
+        "day": "Friday",
+        "date": "22/05/2026",
+        "period": "Period 1",
+        "intentions": "To understand how to map out a single event or action that has exactly two possible outcomes.",
+        "criteria": "Identify real-world situations that have exactly two outcomes.\nExplain that P(failure) = 1 - P(success).\nRecognise that this model applies to one single attempt only.",
+        "activities": "1. The Bernoulli Distribution.pptx\n2. Ex5.01 p.202 Q6a) b), Q7a) b), Q9, Q10",
+        "resources": "NELSON 5.01.pdf",
+        "files": []
+      }
+    ]
+  },
+  {
+    "id": "w5",
+    "n": 6,
+    "title": "Properties of Binomial Distribution",
+    "start": "2026-05-25",
+    "end": "2026-05-28",
+    "hw": "https://sec.instructure.com/courses/9697/quizzes/7277",
+    "hwLabel": "HW Week 6",
+    "lessons": [
+      {
+        "day": "Monday",
+        "date": "25/05/2026",
+        "period": "Period 3&4",
+        "intentions": "To understand how to predict the total number of successes when you repeat a simple two-outcome event a specific number of times.",
+        "criteria": "Explain that this model is simply taking a single pass/fail event and repeating it many times.\nPredict that the most likely total number of successes depends on how many tries you make and your exact odds.\nDescribe how the graph shifts from leaning to one side to forming a symmetrical hill when you change the odds.",
+        "activities": "1. The Binomial Distribution.pptx\n2. Ex5.03 p.214 Q3, Q6a) c) e), Q7, Q9",
+        "resources": "NELSON 5.03.pdf",
+        "files": []
+      },
+      {
+        "day": "Tuesday",
+        "date": "26/05/2026",
+        "period": "Period 6",
+        "intentions": "To understand how to predict the total number of successes when you repeat a simple two-outcome event a specific number of times.",
+        "criteria": "Explain that this model is simply taking a single pass/fail event and repeating it many times.\nPredict that the most likely total number of successes depends on how many tries you make and your exact odds.\nDescribe how the graph shifts from leaning to one side to forming a symmetrical hill when you change the odds.",
+        "activities": "1. Using the Binomial Distribution.pptx\n2. Ex5.04 p.218 Q2, Q4, Q6, Q8, Q10, Q12",
+        "resources": "NELSON 5.04.pdf",
+        "files": []
+      },
+      {
+        "day": "Thursday",
+        "date": "28/05/2026",
+        "period": "Period 3",
+        "intentions": "To understand the strict rules that make a scenario binomial, and how those rules reveal the expected average and level of uncertainty.",
+        "criteria": "Identify the four strict rules: fixed number of tries, only two outcomes, independent events, and odds that never change.\nExplain that the expected average is the total number of tries multiplied by your chance of winning a single try.\nRecognise that spread is highest when the odds are 50/50.",
+        "activities": "1. Complete Ex5.04 p.218 Q2, Q4, Q6, Q8, Q10, Q12\n2. The Properties of a Binomial Distribution.pptx\n3. Ex5.05 p.226 Q1, Q2, Q7, Q8, Q10, Q12",
+        "resources": "NELSON 5.04.pdf\nNELSON 5.05.pdf",
+        "files": []
+      }
+    ]
+  },
+  {
+    "id": "w6",
+    "n": 7,
+    "title": "Revision Week 1 / Catch Up",
+    "start": "2026-06-02",
+    "end": "2026-06-05",
+    "hw": "#",
+    "hwLabel": "No HW",
+    "lessons": [
+      {
+        "day": "Tuesday",
+        "date": "02/06/2026",
+        "period": "Period 1",
+        "intentions": "To understand the strict rules that make a scenario binomial.",
+        "criteria": "Identify the four strict rules.\nExplain that the expected average = total tries x chance of winning.\nRecognise spread is highest when odds are 50/50.",
+        "activities": "Ensure Ex5.05 is completed.",
+        "resources": "NELSON 5.05.pdf",
+        "files": [
+          {
+            "name": "Nelson 5.05",
+            "url": "https://sec.instructure.com/courses/9697/files/791602?wrap=1"
+          }
+        ]
+      },
+      {
+        "day": "Wednesday",
+        "date": "03/06/2026",
+        "period": "Period 3",
+        "intentions": "To systematically review and solidify understanding of all key concepts in preparation for the upcoming exam.",
+        "criteria": "Independently identify your weakest topics and complete targeted practice problems.",
+        "activities": "Revision Materials and Exam Information — see Canvas link.",
+        "resources": "",
+        "files": []
+      },
+      {
+        "day": "Thursday",
+        "date": "04/06/2026",
+        "period": "Period 5",
+        "intentions": "To systematically review and solidify understanding of all key concepts in preparation for the upcoming exam.",
+        "criteria": "Independently identify your weakest topics and complete targeted practice problems.",
+        "activities": "Revision Materials and Exam Information — see Canvas link.",
+        "resources": "",
+        "files": []
+      },
+      {
+        "day": "Friday",
+        "date": "05/06/2026",
+        "period": "Period 1",
+        "intentions": "To systematically review and solidify understanding of all key concepts in preparation for the upcoming exam.",
+        "criteria": "Independently identify your weakest topics and complete targeted practice problems.",
+        "activities": "Revision Materials and Exam Information — see Canvas link.",
+        "resources": "",
+        "files": []
+      }
+    ]
+  },
+  {
+    "id": "w7",
+    "n": 8,
+    "title": "Revision Week 2",
+    "start": "2026-06-08",
+    "end": "2026-06-11",
+    "hw": "#",
+    "hwLabel": "No HW",
+    "lessons": [
+      {
+        "day": "Monday",
+        "date": "08/06/2026",
+        "period": "Period 3&4",
+        "intentions": "",
+        "criteria": "",
+        "activities": "Public Holiday",
+        "resources": "",
+        "files": []
+      },
+      {
+        "day": "Tuesday",
+        "date": "10/06/2026",
+        "period": "Period 6",
+        "intentions": "To systematically review and solidify understanding of all key concepts in preparation for the upcoming exam.",
+        "criteria": "Independently identify your weakest topics and complete targeted practice problems.",
+        "activities": "Revision Materials and Exam Information — see Canvas link.",
+        "resources": "",
+        "files": []
+      },
+      {
+        "day": "Thursday",
+        "date": "11/06/2026",
+        "period": "Period 3",
+        "intentions": "To systematically review and solidify understanding of all key concepts in preparation for the upcoming exam.",
+        "criteria": "Independently identify your weakest topics and complete targeted practice problems.",
+        "activities": "Revision Materials and Exam Information — see Canvas link.",
+        "resources": "",
+        "files": []
+      }
+    ]
+  },
+  {
+    "id": "w8",
+    "n": 9,
+    "title": "Exam Period",
+    "start": "2026-06-16",
+    "end": "2026-06-19",
+    "hw": "#",
+    "hwLabel": "No HW",
+    "lessons": [
+      {
+        "day": "Tuesday",
+        "date": "16/06/2026",
+        "period": "Period 1",
+        "intentions": "",
+        "criteria": "",
+        "activities": "",
+        "resources": "",
+        "files": []
+      },
+      {
+        "day": "Wednesday",
+        "date": "17/06/2026",
+        "period": "Period 3",
+        "intentions": "",
+        "criteria": "",
+        "activities": "",
+        "resources": "",
+        "files": []
+      },
+      {
+        "day": "Thursday",
+        "date": "18/06/2026",
+        "period": "Period 5",
+        "intentions": "",
+        "criteria": "",
+        "activities": "",
+        "resources": "",
+        "files": []
+      },
+      {
+        "day": "Friday",
+        "date": "19/06/2026",
+        "period": "Period 1",
+        "intentions": "",
+        "criteria": "",
+        "activities": "",
+        "resources": "",
+        "files": []
+      }
+    ]
+  },
+  {
+    "id": "w9",
+    "n": 10,
+    "title": "Semester 2 Break Prep",
+    "start": "2026-06-22",
+    "end": "2026-06-25",
+    "hw": "#",
+    "hwLabel": "No HW",
+    "lessons": [
+      {
+        "day": "Monday",
+        "date": "22/06/2026",
+        "period": "Period 3&4",
+        "intentions": "",
+        "criteria": "",
+        "activities": "",
+        "resources": "",
+        "files": []
+      },
+      {
+        "day": "Tuesday",
+        "date": "23/06/2026",
+        "period": "Period 6",
+        "intentions": "",
+        "criteria": "",
+        "activities": "",
+        "resources": "",
+        "files": []
+      },
+      {
+        "day": "Thursday",
+        "date": "25/06/2026",
+        "period": "Period 3",
+        "intentions": "",
+        "criteria": "",
+        "activities": "",
+        "resources": "",
+        "files": []
+      }
+    ]
+  }
+]
